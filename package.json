@@ -15,7 +15,7 @@
     "lodash-es": "^4.17.21",
     "pinia": "2.0.33",
     "qrcode": "^1.5.3",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^3.0.2",
     "vue": "^3.4.38",
     "vue-i18n": "9.2.2"
   },
@@ -41,7 +41,6 @@
     "autoprefixer": "10.4.14",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
-    "html5-qrcode": "^2.3.8",
     "postcss": "^8.4.35",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
