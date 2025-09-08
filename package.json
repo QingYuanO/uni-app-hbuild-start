@@ -2,7 +2,8 @@
   "name": "uni-preset-vue",
   "version": "0.0.0",
   "scripts": {
-    "iconfont": "npx iconfont-uni"
+    "iconfont": "npx iconfont-uni",
+    "alova-gen": "alova gen -f"
   },
   "dependencies": {
     "@alova/adapter-uniapp": "^2.0.14",
@@ -21,6 +22,7 @@
     "vue-i18n": "9.2.2"
   },
   "devDependencies": {
+    "@alova/wormhole": "^1.2.0",
     "@dcloudio/types": "^3.4.12",
     "@dcloudio/vite-plugin-uni": "3.0.0-4010520240507001",
     "@iconify/json": "^2.2.224",
