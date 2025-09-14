@@ -1,12 +1,11 @@
 <!-- 首页 -->
 <template>
 	<Container> 
-		<view>1</view>
+		<view class="bg-red-500 p-4">1</view>
 	</Container>
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
 
 onMounted(() => {});
 </script>

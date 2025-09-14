@@ -31,6 +31,6 @@ const props = withDefaults(
 	}
 );
 
-const isShowHomeIndicator = uni.getSystemInfoSync().safeAreaInsets?.bottom ?? 0 > 0;
+const isShowHomeIndicator = uni.getWindowInfo().safeAreaInsets?.bottom ?? 0 > 0;
 </script>
 <style scoped></style>

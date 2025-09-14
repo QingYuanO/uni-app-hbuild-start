@@ -1,14 +1,15 @@
 <!-- 包裹每个页面的组件，集成一些全局功能 -->
 <template>
-	<view :class="cn('cover-nutui relative mx-auto box-border bg-borurio-bg', osName, $attrs.class as string)" >
-		<slot name="header"></slot>
-		{{ $t('') }}
-		<view :style="{ paddingTop: `${contentTop}px`, paddingBottom: `${contentBottom}px` }">
-			<slot></slot>
-		</view>
+	<wd-config-provider :theme="theme" :theme-vars="themeVars">
+		<view :class="cn('cover-nutui relative mx-auto box-border bg-borurio-bg', osName, $attrs.class as string)">
+			<slot name="header"></slot>
+			<view :style="{ paddingTop: `${contentTop}px`, paddingBottom: `${contentBottom}px` }">
+				<slot></slot>
+			</view>
 
-		<slot name="footer"></slot>
-	</view>
+			<slot name="footer"></slot>
+		</view>
+	</wd-config-provider>
 </template>
 
 <script lang="ts">
@@ -24,11 +25,14 @@ export default {
 </script>
 
 <script setup lang="ts">
-// #ifndef MP-WEIXIN
 defineOptions({
-	inheritAttrs: false,
-});
-// #endif
+	name: 'container',
+	options: {
+		virtualHost: true,
+		addGlobalClass: true,
+		styleIsolation: 'shared',
+	},
+})
 
 const props = withDefaults(
 	defineProps<{
@@ -38,16 +42,19 @@ const props = withDefaults(
 		needAuth?: boolean;
 		customClass?: string;
 		hasStatusBarTop?: boolean;
-		dict?: string[];
 		footerClass?: string;
 	}>(),
 	{
-		needAuth: true,
 		hasStatusBarTop: true,
 	}
 );
 
 const { osName } = useSystemOs();
+
+const { theme, themeVars } = useTheme({
+	// buttonPrimaryBgColor: '#07c160',
+	// buttonPrimaryColor: '#07c160'
+})
 
 const slots = useSlots();
 
@@ -69,19 +76,19 @@ onMounted(() => {
 	getFooterHeight();
 });
 
-onLoad(() => {});
+onLoad(() => { });
 
 onShow(() => {
-	const token = uni.getStorageSync('token');
+	// const token = uni.getStorageSync('token');
 
-	if (props.needAuth && !token) {
-		uni.removeStorageSync('userData');
-		uni.redirectTo({
-			url: '/pages/login/index',
-		});
+	// if (props.needAuth && !token) {
+	// 	uni.removeStorageSync('userData');
+	// 	uni.redirectTo({
+	// 		url: '/pages/login/index',
+	// 	});
 
-		return;
-	}
+	// 	return;
+	// }
 });
 
 const getFooterHeight = () => {

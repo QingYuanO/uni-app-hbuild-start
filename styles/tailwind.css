@@ -1,0 +1,9 @@
+@import "weapp-tailwindcss/css";
+@config "../tailwind.config.js";
+@source not "unpackage";
+
+
+@theme {
+
+}
+

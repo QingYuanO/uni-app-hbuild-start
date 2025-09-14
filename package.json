@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "iconfont": "npx iconfont-uni",
-    "alova-gen": "alova gen -f"
+    "alova-gen": "alova gen -f",
+    "copy-darwin-x64": "cd node_modules/@esbuild && cp -r darwin-arm64 darwin-x64"
   },
   "dependencies": {
     "@alova/adapter-uniapp": "^2.0.14",
@@ -26,6 +27,7 @@
     "@dcloudio/vite-plugin-uni": "3.0.0-4010520240507001",
     "@iconify/json": "^2.2.346",
     "@iconify/tailwind": "^1.2.0",
+    "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/typography": "^0.5.16",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/lodash-es": "^4.17.12",
@@ -44,10 +46,10 @@
     "eslint-plugin-vue": "^9.23.0",
     "postcss": "^8.4.35",
     "prettier": "^3.3.2",
-    "prettier-plugin-tailwindcss": "^0.6.5",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "sass": "^1.77.6",
-    "tailwind-scrollbar": "^3.1.0",
-    "tailwindcss": "^3.4.17",
+    "tailwind-scrollbar": "^4.0.2",
+    "tailwindcss": "^4.1.13",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.0.0",
     "uni-iconfont-plugin": "^1.0.3",
@@ -55,6 +57,6 @@
     "vite": "5.4.19",
     "vue-eslint-parser": "^9.4.3",
     "vue-tsc": "^2.2.10",
-    "weapp-tailwindcss": "^3.7.0"
+    "weapp-tailwindcss": "^4.3.0"
   }
 }

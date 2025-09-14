@@ -5,11 +5,12 @@ export default function useSystemOs() {
 	const isAndroid = computed(() => osName.value === 'android');
 
 	onLoad(() => {
-		uni.getSystemInfo({
-			success(res) {
-				osName.value = res.osName as any;
-			},
-		});
+
+		const deviceInfo = 	uni.getDeviceInfo()
+
+		osName.value = deviceInfo.platform as any;
+
+		
 	});
 
 	return { osName, isAndroid, isIos };

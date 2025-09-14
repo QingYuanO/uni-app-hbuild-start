@@ -1,5 +1,5 @@
 import i18n from '@/i18n';
-import { ClassValue, clsx } from 'clsx';
+import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 import { COLOR } from './constant';
@@ -52,7 +52,7 @@ export const setStatusBarColor = (type: 'light' | 'dark') => {
 
 // 获取自定义navbar高度
 export const getCustomNavHeight = () => {
-	const statusBarHeight = uni.getSystemInfoSync().statusBarHeight;
+	const statusBarHeight = uni.getWindowInfo().statusBarHeight;
 	return 44 + (statusBarHeight ?? 0);
 };
 

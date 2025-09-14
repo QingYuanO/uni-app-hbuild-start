@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
 
-import { useI18nStoreHook } from '@/store/i18n';
-import { onHide, onLaunch, onShow } from '@dcloudio/uni-app';
+onLoad(() => {
 
-const { locale } = useI18n();
+
+
+
+});
 </script>
+
+<style src="./styles/theme.css"></style>
+
 <style lang="scss">
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import './styles/tailwind.css';
 
 @import './styles/theme.css';
 
@@ -17,12 +19,15 @@ const { locale } = useI18n();
 .uni-modal {
 	border-radius: 10px;
 }
+
 .uni-modal__hd {
 	text-align: start;
 }
+
 .uni-modal__ft:after,
 .uni-modal__btn:after {
 	border: none;
 }
+
 /* #endif */
 </style>

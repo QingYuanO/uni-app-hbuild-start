@@ -49,25 +49,25 @@ module.exports = {
 		require('tailwind-scrollbar')({ preferredStrategy: 'pseudoelements', nocompatible: true }),
 		require('@tailwindcss/typography'),
 		require('tailwindcss-animate'),
-		cssMacro({
-			variantsMap: {
-				wx: 'MP-WEIXIN',
-				'-wx': {
-					value: 'MP-WEIXIN',
-					negative: true,
-				},
-				'app-plus': 'APP-PLUS',
-				'-app-plus': {
-					value: 'APP-PLUS',
-					negative: true,
-				},
-				h5: 'H5',
-				'-h5': {
-					value: 'H5',
-					negative: true,
-				},
-			},
-		}),
+		// cssMacro({
+		// 	variantsMap: {
+		// 		wx: 'MP-WEIXIN',
+		// 		'-wx': {
+		// 			value: 'MP-WEIXIN',
+		// 			negative: true,
+		// 		},
+		// 		'app-plus': 'APP-PLUS',
+		// 		'-app-plus': {
+		// 			value: 'APP-PLUS',
+		// 			negative: true,
+		// 		},
+		// 		h5: 'H5',
+		// 		'-h5': {
+		// 			value: 'H5',
+		// 			negative: true,
+		// 		},
+		// 	},
+		// }),
 		tailwindcssPlugin(function ({ addUtilities, addVariant, matchUtilities, theme }) {
 			const os = ['ios', 'android'];
 			os.forEach((t) => {
