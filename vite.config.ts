@@ -1,5 +1,7 @@
 import uni from '@dcloudio/vite-plugin-uni';
 import Components from '@uni-helper/vite-plugin-uni-components';
+import { WotResolver } from '@uni-helper/vite-plugin-uni-components/resolvers';
+import UniKuRoot from '@uni-ku/root';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
@@ -15,18 +17,9 @@ const WeappTailwindcssDisabled = isH5 || isApp;
 export default defineConfig(({ command, mode }) => {
 	const env = loadEnv(mode, process.cwd(), '');
 	return {
-		build: {
-			target: 'es6',
-		},
+		build: { target: 'es6' },
 		base: command === 'serve' ? './' : env.VITE_PUBLIC_PATH,
-		resolve: {
-			alias: [
-				{
-					find: '@',
-					replacement: resolve(__dirname, './'),
-				},
-			],
-		},
+		resolve: { alias: [{ find: '@', replacement: resolve(__dirname, './') }] },
 		server: {
 			port: env.VITE_PORT as unknown as number,
 			// 选项写法
@@ -43,20 +36,11 @@ export default defineConfig(({ command, mode }) => {
 					require('autoprefixer'),
 				],
 			},
-			preprocessorOptions: {
-				scss: {
-					additionalData: ``,
-				},
-			},
+			preprocessorOptions: { scss: { additionalData: `` } },
 		},
 		plugins: [
-			Components({
-				dts: 'types/components.d.ts',
-				dirs: ['components'],
-				resolvers: [
-					// NutResolver(),
-				],
-			}),
+			UniKuRoot({ rootFileName: 'AppRoot' }),
+			Components({ dts: 'types/components.d.ts', dirs: ['components'], resolvers: [WotResolver()] }),
 			uni(),
 			vueJsx(),
 			uvwt({

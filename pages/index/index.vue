@@ -1,6 +1,8 @@
 <!-- 首页 -->
 <template>
-	<Container> </Container>
+	<Container> 
+		<view>1</view>
+	</Container>
 </template>
 
 <script setup lang="ts">

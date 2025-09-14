@@ -118,55 +118,6 @@ export const jumpToAppMarket = () => {
 	}
 };
 
-/**
- * 检查版本更新
- * @param businessesCode
- * @param isManualCheck
- */
-export const checkVersion = async (businessesCode: number, isManualCheck?: boolean) => {
-	try {
-		const version = '';
-
-		const updateVersionTip = uni.getStorageSync('updateVersionTip');
-
-		const now = new Date().getTime();
-
-		const isShowTip = !updateVersionTip || now - updateVersionTip > 24 * 60 * 60 * 1000;
-
-		plus.runtime.getProperty(plus.runtime.appid!, function (widgetInfo) {
-			if (!widgetInfo?.versionCode || !version) {
-				return;
-			}
-
-			if (Number(widgetInfo?.versionCode) < Number(version) && (isShowTip || isManualCheck)) {
-				uni.showModal({
-					title: t('message.Tip.App_Update_Title'),
-					content: t('message.Tip.App_Update_Tip'),
-					confirmText: t('message.All.Confirm'),
-					cancelText: t('message.All.Neglect'),
-					confirmColor: getPrimaryColor(),
-					success: (res) => {
-						uni.setStorageSync('updateVersionTip', new Date().getTime());
-
-						if (res.confirm) {
-							jumpToAppMarket();
-						}
-					},
-				});
-			} else {
-				if (isManualCheck) {
-					uni.showToast({
-						title: t('message.Tip.Is_Newest_Version'),
-						icon: 'none',
-					});
-				}
-			}
-		});
-	} catch (error) {
-		console.log(error);
-	}
-};
-
 // 请求通知权限
 export const requestNotificationPermission = () => {
 	if (plus.os.name !== 'Android') {

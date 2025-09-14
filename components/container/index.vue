@@ -24,7 +24,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {} from '@uni-helper/uni-app-types';
+import { cn } from '@/utils';
 
 // #ifndef MP-WEIXIN
 defineOptions({
