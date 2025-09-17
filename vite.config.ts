@@ -23,6 +23,7 @@ export default defineConfig({
 		// vueJsx(),
 		uvwt({
 			rem2rpx: true,
+			cssPresetEnv: {},
 			tailwindcss: {
 				v4: {
 					base: __dirname,

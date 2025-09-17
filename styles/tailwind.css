@@ -1,4 +1,9 @@
-@import 'weapp-tailwindcss/css';
+/*  #ifdef  H5  */
+@import 'tailwindcss';
+/*  #endif  */
+/*  #ifndef  H5  */
+@import 'weapp-tailwindcss';
+/*  #endif  */
 @config "../tailwind.config.js";
 @source not "unpackage";
 

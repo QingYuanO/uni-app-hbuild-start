@@ -2,8 +2,6 @@ import i18n from '@/i18n';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import { COLOR } from './constant';
-
 const { t } = i18n.global;
 
 /**
@@ -28,7 +26,6 @@ export const pt = (num: number) => {
 	return num * (screenWidth / 375);
 };
 
-
 export const getCurrentPage = () => {
 	const pages = getCurrentPages();
 	const currentPage = pages[pages.length - 1];
@@ -45,23 +42,19 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-
 // uuid
 export function uuid(): string {
 	const s: any[] = [];
-	const hexDigits = "0123456789abcdef";
+	const hexDigits = '0123456789abcdef';
 	for (let i = 0; i < 36; i++) {
 		s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
 	}
-	s[14] = "4";
+	s[14] = '4';
 	s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
-	s[8] = s[13] = s[18] = s[23] = "-";
+	s[8] = s[13] = s[18] = s[23] = '-';
 
-	return s.join("");
+	return s.join('');
 }
-
-
-
 
 /**
  * 复制内容
@@ -80,8 +73,6 @@ export const copyText = (val: string) => {
 	});
 };
 
-
-
 export const toJumpLinks = (url: string) => {
 	if (!url) return;
 
@@ -94,4 +85,3 @@ export const toJumpLinks = (url: string) => {
 
 	// #endif
 };
-

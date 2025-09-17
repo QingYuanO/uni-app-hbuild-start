@@ -4,7 +4,8 @@
   "scripts": {
     "iconfont": "npx iconfont-uni",
     "alova-gen": "alova gen -f",
-    "copy-darwin-x64": "cd node_modules/@esbuild && cp -r darwin-arm64 darwin-x64"
+    "copy-darwin-x64": "cd node_modules/@esbuild && cp -r darwin-arm64 darwin-x64",
+     "postinstall": "weapp-tw patch"
   },
   "dependencies": {
     "@alova/adapter-uniapp": "^2.0.14",

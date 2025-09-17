@@ -1,5 +1,5 @@
 /**
- * 组织退出应用，直接退回到后台
+ * 阻止退出应用，直接退回到后台
  */
 export default function useAndroidMoveTaskToBack() {
 	onBackPress(() => {
