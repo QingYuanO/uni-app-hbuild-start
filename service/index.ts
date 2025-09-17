@@ -9,7 +9,7 @@ const getBaseUrl = () => {
 	if (process.env.NODE_ENV === 'development') {
 		return 'http://192.168.124.50:9096';
 	} else {
-		return 'https://tms.borurio.com/prod-api';
+		return 'xxx';
 	}
 };
 

@@ -1,29 +1,3 @@
-.theme {
-	--main-color: #347aff;
-	--main-bg-color: #eceff7;
-	--main-line-color: #cce2f2;
-	--main-error-color: #ce0505;
-	--main-info-color: #101010;
-	--main-success-color: #1d915a;
-	--main-info-two-color: #bbbbbb;
-	--main-sky-color: #54c3f1;
-
-	--input-border-color: #c5c6cc;
-
-	--safe: env(safe-area-inset-bottom);
-	background-color: #eceff7;
-	color: #101010;
-	font-size: 28rpx;
-
-	--points-primary-color: #ce0505;
-	--points-secondary-color: #fb553c;
-
-	--normal-border-radius: 10px;
-}
-page {
-	background-color: #eceff7;
-}
-
 .aspect-square {
 	aspect-ratio: 1 / 1;
 }

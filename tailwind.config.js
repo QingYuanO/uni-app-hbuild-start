@@ -12,62 +12,39 @@ const resolve = (p) => {
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	darkMode: ['class'],
-	safelist: ['dark'],
-	corePlugins: {
-		preflight: !isMp,
-	},
-	content: ['./index.html', './**/*.vue'].map(resolve),
+	// darkMode: ['class'],
+	// safelist: ['dark'],
+	// corePlugins: {
+	// 	preflight: !isMp,
+	// },
+	// content: ['./index.html', './**/*.vue'].map(resolve),
 
-	theme: {
-		extend: {
-			colors: {
-				borurio: {
-					primary: 'var(--main-color)',
-					bg: 'var(--main-bg-color)',
-					line: 'var(--main-line-color)',
-					error: 'var(--main-error-color)',
-					info: 'var(--main-info-color)',
-					info2: 'var(--main-info-two-color)',
-					success: 'var(--main-success-color)',
-					sky: 'var(--main-sky-color)',
-					'input-border': 'var(--input-border-color)',
-				},
-				points: {
-					primary: 'var(--points-primary-color)',
-					secondary: 'var(--points-secondary-color)',
-				},
-			},
-			borderRadius: {
-				normal: 'var(--normal-border-radius)',
-			},
-		},
-	},
+	// theme: {
+	// 	extend: {
+	// 		colors: {
+	// 			borurio: {
+	// 				primary: 'var(--main-color)',
+	// 				bg: 'var(--main-bg-color)',
+	// 				line: 'var(--main-line-color)',
+	// 				error: 'var(--main-error-color)',
+	// 				info: 'var(--main-info-color)',
+	// 				info2: 'var(--main-info-two-color)',
+	// 				success: 'var(--main-success-color)',
+	// 				sky: 'var(--main-sky-color)',
+	// 				'input-border': 'var(--input-border-color)',
+	// 			},
+	// 		},
+	// 		borderRadius: {
+	// 			normal: 'var(--normal-border-radius)',
+	// 		},
+	// 	},
+	// },
 	plugins: [
 		animate,
 		addDynamicIconSelectors(),
 		require('tailwind-scrollbar')({ preferredStrategy: 'pseudoelements', nocompatible: true }),
 		require('@tailwindcss/typography'),
 		require('tailwindcss-animate'),
-		// cssMacro({
-		// 	variantsMap: {
-		// 		wx: 'MP-WEIXIN',
-		// 		'-wx': {
-		// 			value: 'MP-WEIXIN',
-		// 			negative: true,
-		// 		},
-		// 		'app-plus': 'APP-PLUS',
-		// 		'-app-plus': {
-		// 			value: 'APP-PLUS',
-		// 			negative: true,
-		// 		},
-		// 		h5: 'H5',
-		// 		'-h5': {
-		// 			value: 'H5',
-		// 			negative: true,
-		// 		},
-		// 	},
-		// }),
 		tailwindcssPlugin(function ({ addUtilities, addVariant, matchUtilities, theme }) {
 			const os = ['ios', 'android'];
 			os.forEach((t) => {
@@ -110,26 +87,10 @@ module.exports = {
 			);
 			matchUtilities(
 				{
-					square: (value) => ({
-						width: value,
-						height: value,
-					}),
 					circular: (value) => ({
 						width: value,
 						height: value,
 						'border-radius': '100%',
-					}),
-					'expand-area': (value) => ({
-						position: 'relative',
-						'&::after': {
-							content: '',
-							position: 'absolute',
-							top: value,
-							bottom: value,
-							left: value,
-							right: value,
-							'z-index': 80,
-						},
 					}),
 				},
 				{ values: theme('spacing') }

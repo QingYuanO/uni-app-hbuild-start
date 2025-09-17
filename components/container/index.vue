@@ -1,15 +1,14 @@
 <!-- 包裹每个页面的组件，集成一些全局功能 -->
 <template>
-	<wd-config-provider :theme="theme" :theme-vars="themeVars">
-		<view :class="cn('cover-nutui relative mx-auto box-border bg-borurio-bg', osName, $attrs.class as string)">
-			<slot name="header"></slot>
-			<view :style="{ paddingTop: `${contentTop}px`, paddingBottom: `${contentBottom}px` }">
-				<slot></slot>
-			</view>
-
+	<view :class="cn('bg-background text-foreground relative box-border', osName, $attrs.class as string)">
+		<slot name="header"></slot>
+		<view :style="{ paddingTop: `${contentTop}px`, paddingBottom: `${contentBottom}px` }">
+			<slot></slot>
+		</view>
+		<view id="container_footer" :class="cn('fixed inset-x-0 bottom-0 z-[300] box-border', props.footerClass)">
 			<slot name="footer"></slot>
 		</view>
-	</wd-config-provider>
+	</view>
 </template>
 
 <script lang="ts">
@@ -32,7 +31,7 @@ defineOptions({
 		addGlobalClass: true,
 		styleIsolation: 'shared',
 	},
-})
+});
 
 const props = withDefaults(
 	defineProps<{
@@ -41,31 +40,21 @@ const props = withDefaults(
 		 */
 		needAuth?: boolean;
 		customClass?: string;
-		hasStatusBarTop?: boolean;
 		footerClass?: string;
 	}>(),
-	{
-		hasStatusBarTop: true,
-	}
+	{}
 );
 
 const { osName } = useSystemOs();
 
-const { theme, themeVars } = useTheme({
-	// buttonPrimaryBgColor: '#07c160',
-	// buttonPrimaryColor: '#07c160'
-})
-
 const slots = useSlots();
-
-const { safeArea } = uni.getWindowInfo();
 
 const instance = getCurrentInstance();
 
 const footerHeader = ref(0);
 
 const contentTop = computed(() => {
-	return (slots.header ? 44 : 0) + (props.hasStatusBarTop ? safeArea.top : 0);
+	return slots.header ? getCustomNavHeight() : 0;
 });
 
 const contentBottom = computed(() => {
@@ -73,28 +62,19 @@ const contentBottom = computed(() => {
 });
 
 onMounted(() => {
-	getFooterHeight();
+	if (slots.footer) {
+		getFooterHeight();
+	}
 });
 
-onLoad(() => { });
+onLoad(() => {});
 
-onShow(() => {
-	// const token = uni.getStorageSync('token');
-
-	// if (props.needAuth && !token) {
-	// 	uni.removeStorageSync('userData');
-	// 	uni.redirectTo({
-	// 		url: '/pages/login/index',
-	// 	});
-
-	// 	return;
-	// }
-});
+onShow(() => {});
 
 const getFooterHeight = () => {
 	const query = uni.createSelectorQuery().in(instance?.proxy);
 	query
-		.select('#fixed_footer')
+		.select('#container_footer')
 		.boundingClientRect((data: any) => {
 			footerHeader.value = data?.height ?? 0;
 		})

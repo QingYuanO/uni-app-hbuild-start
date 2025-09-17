@@ -56,7 +56,7 @@ export function getParent(name: string, k1: string[], k2?: string[]) {
 }
 
 // 获取元素位置信息
-export async function getRect(selector: string): Promise<any> {
+export async function getRect(selector: string): Promise<UniApp.NodeInfo | UniApp.NodeInfo[]> {
 	return new Promise((resolve) => {
 		uni
 			.createSelectorQuery()
@@ -77,8 +77,31 @@ export const setStatusBarColor = (type: 'light' | 'dark') => {
 
 // 获取自定义navbar高度
 export const getCustomNavHeight = () => {
+	let headerHeight = 44;
+
+	// #ifdef MP-WEIXIN
+	const menuButtonBounding = uni.getMenuButtonBoundingClientRect();
+	headerHeight = menuButtonBounding.top + menuButtonBounding.height + 5;
+	// #endif
+
+	// #ifdef APP-PLUS
 	const statusBarHeight = uni.getWindowInfo().statusBarHeight;
-	return 44 + (statusBarHeight ?? 0);
+	headerHeight = 44 + (statusBarHeight ?? 0);
+	// #endif
+
+	return headerHeight;
+};
+
+export const getSafeArea = () => {
+	const windowInfo = uni.getWindowInfo();
+	const safeBottom = windowInfo.screenHeight - (windowInfo?.safeArea?.bottom ?? 0);
+	const safeTop = windowInfo.safeArea?.top;
+	const safeHeight = windowInfo.safeArea?.height;
+	return {
+		safeBottom,
+		safeTop,
+		safeHeight,
+	};
 };
 
 /**

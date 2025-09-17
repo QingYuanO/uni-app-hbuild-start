@@ -14,7 +14,7 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"skipLibCheck": true,
-		"types": ["@dcloudio/types", "@uni-helper/uni-app-types"],
+		"types": ["@dcloudio/types", "@uni-helper/uni-app-types", "wot-design-uni/global"],
 		"paths": {
 			"@/*": ["./*"]
 		}

@@ -1,13 +1,12 @@
 // import { vueJsx } from '@vitejs/plugin-vue-jsx';
 import uni from '@dcloudio/vite-plugin-uni';
+import tailwindcss from '@tailwindcss/postcss';
 import Components from '@uni-helper/vite-plugin-uni-components';
 import { WotResolver } from '@uni-helper/vite-plugin-uni-components/resolvers';
 import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
 import { defineConfig } from 'vite';
-import { UnifiedViteWeappTailwindcssPlugin as uvwt } from 'weapp-tailwindcss/vite'
-import tailwindcss from '@tailwindcss/postcss'
-
+import { UnifiedViteWeappTailwindcssPlugin as uvwt } from 'weapp-tailwindcss/vite';
 
 // 注意： 打包成 h5 和 app 都不需要开启插件配置
 const isH5 = process.env.UNI_PLATFORM === 'h5';
@@ -19,16 +18,16 @@ export default defineConfig({
 	resolve: { alias: [{ find: '@', replacement: resolve(__dirname, './') }] },
 
 	plugins: [
-		Components({ dts: 'types/components.d.ts', dirs: ['components'], resolvers: [WotResolver()] }),
+		Components({ dts: 'types/components.d.ts', dirs: ['components'], resolvers: [] }),
 		uni(),
 		// vueJsx(),
 		uvwt({
 			rem2rpx: true,
 			tailwindcss: {
 				v4: {
-					base: __dirname
-				}
-			}
+					base: __dirname,
+				},
+			},
 		}),
 		AutoImport({
 			imports: [
@@ -39,10 +38,11 @@ export default defineConfig({
 				{
 					from: 'wot-design-uni',
 					imports: ['useToast', 'useMessage', 'useNotify', 'CommonUtil'],
-				}, {
+				},
+				{
 					from: 'alova/client',
 					imports: ['usePagination', 'useRequest'],
-				}
+				},
 			],
 			dts: 'types/auto-imports.d.ts',
 			dirs: ['hooks/**', 'store/**', 'utils/**'],
@@ -53,10 +53,14 @@ export default defineConfig({
 		postcss: {
 			plugins: [
 				tailwindcss({
-					base: __dirname
-				})
+					base: __dirname,
+				}),
 			],
 		},
 		preprocessorOptions: { scss: { additionalData: `` } },
+	},
+	define: {
+		__VUE_I18N_FULL_INSTALL__: true,
+		__VUE_I18N_LEGACY_API__: false,
 	},
 });
