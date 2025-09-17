@@ -44,6 +44,10 @@ export default defineConfig({
 					from: 'alova/client',
 					imports: ['usePagination', 'useRequest'],
 				},
+				{
+					from: 'tailwind-variants',
+					imports: ['cn', 'tv', 'createTV', 'cnBase'],
+				},
 			],
 			dts: 'types/auto-imports.d.ts',
 			dirs: ['hooks/**', 'store/**', 'utils/**'],

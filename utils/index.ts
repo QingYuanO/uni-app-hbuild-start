@@ -1,6 +1,4 @@
 import i18n from '@/i18n';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 
 const { t } = i18n.global;
 
@@ -31,16 +29,6 @@ export const getCurrentPage = () => {
 	const currentPage = pages[pages.length - 1];
 	return currentPage;
 };
-
-/**
- * 将多个类值组合成一个字符串。
- *
- * @param inputs - 要组合的类值。
- * @returns 组合后的类字符串。
- */
-export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
-}
 
 // uuid
 export function uuid(): string {

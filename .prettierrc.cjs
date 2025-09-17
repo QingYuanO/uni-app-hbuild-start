@@ -3,7 +3,7 @@
 module.exports = {
 	plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
 	tailwindConfig: './tailwind.config.js',
-	tailwindFunctions: ['cn', 'cva', 'clsx'],
+	tailwindFunctions: ['cn', 'tv', 'cnBase'],
 	tailwindAttributes: ['hoverClass', 'placeholderClass'],
 	// 一行最多多少个字符
 	printWidth: 150,

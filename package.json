@@ -5,7 +5,7 @@
     "iconfont": "npx iconfont-uni",
     "alova-gen": "alova gen -f",
     "copy-darwin-x64": "cd node_modules/@esbuild && cp -r darwin-arm64 darwin-x64",
-     "postinstall": "weapp-tw patch"
+    "postinstall": "weapp-tw patch"
   },
   "dependencies": {
     "@alova/adapter-uniapp": "^2.0.14",
@@ -13,11 +13,11 @@
     "@dcloudio/uni-app": "3.0.0-4060620250520001",
     "alova": "^3.3.4",
     "bignumber.js": "^9.3.1",
-    "clsx": "^2.1.1",
     "dayjs": "^1.11.18",
     "lodash-es": "^4.17.21",
     "pinia": "2.3.1",
-    "tailwind-merge": "^3.0.2",
+    "tailwind-merge": "^3.3.1",
+    "tailwind-variants": "^3.1.1",
     "vue": "^3.4.38",
     "vue-i18n": "^9.14.0",
     "wot-design-uni": "^1.12.4"
