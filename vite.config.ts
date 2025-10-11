@@ -18,6 +18,7 @@ export default defineConfig({
 		Components({ dts: 'types/components.d.ts', dirs: ['components'], resolvers: [] }),
 		uni(),
 		uvwt({
+			disabled: WeappTailwindcssDisabled,
 			rem2rpx: true,
 			cssPresetEnv: {},
 			tailwindcss: {
