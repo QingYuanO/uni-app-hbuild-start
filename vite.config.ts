@@ -1,8 +1,6 @@
-// import { vueJsx } from '@vitejs/plugin-vue-jsx';
 import uni from '@dcloudio/vite-plugin-uni';
 import tailwindcss from '@tailwindcss/postcss';
 import Components from '@uni-helper/vite-plugin-uni-components';
-import { WotResolver } from '@uni-helper/vite-plugin-uni-components/resolvers';
 import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
 import { defineConfig } from 'vite';
@@ -16,11 +14,9 @@ const WeappTailwindcssDisabled = isH5 || isApp;
 // https://vitejs.dev/config/
 export default defineConfig({
 	resolve: { alias: [{ find: '@', replacement: resolve(__dirname, './') }] },
-
 	plugins: [
 		Components({ dts: 'types/components.d.ts', dirs: ['components'], resolvers: [] }),
 		uni(),
-		// vueJsx(),
 		uvwt({
 			rem2rpx: true,
 			cssPresetEnv: {},
@@ -60,6 +56,7 @@ export default defineConfig({
 				tailwindcss({
 					base: __dirname,
 				}),
+				require('weapp-tailwindcss/css-macro/postcss'),
 			],
 		},
 		preprocessorOptions: { scss: { additionalData: `` } },

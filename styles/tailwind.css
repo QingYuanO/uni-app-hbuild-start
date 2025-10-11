@@ -1,11 +1,6 @@
-/*  #ifdef  H5  */
-@import 'tailwindcss';
-/*  #endif  */
-/*  #ifndef  H5  */
-@import 'weapp-tailwindcss';
-/*  #endif  */
-@config "../tailwind.config.js";
+@import 'weapp-tailwindcss/css';
 @source not "unpackage";
+@config "../tailwind.config.js";
 
 page {
 	--background: oklch(0.97 0.015 240);
