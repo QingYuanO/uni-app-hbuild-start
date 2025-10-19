@@ -1,17 +1,14 @@
 export default function useSystemOs() {
-	const osName = ref<'ios' | 'android' | 'windows' | 'mac' | 'linux'>();
+  const osName = ref<"ios" | "android" | "windows" | "mac" | "linux">();
 
-	const isIos = computed(() => osName.value === 'ios');
-	const isAndroid = computed(() => osName.value === 'android');
+  const isIos = computed(() => osName.value === "ios");
+  const isAndroid = computed(() => osName.value === "android");
 
-	onLoad(() => {
+  onLoad(() => {
+    const deviceInfo = uni.getDeviceInfo();
 
-		const deviceInfo = 	uni.getDeviceInfo()
+    osName.value = deviceInfo.platform as any;
+  });
 
-		osName.value = deviceInfo.platform as any;
-
-		
-	});
-
-	return { osName, isAndroid, isIos };
+  return { osName, isAndroid, isIos };
 }

@@ -1,5 +1,3 @@
-
-
 export default function useAccessFun<T extends FunctionArgs>(fun: T, option?: { isTipLogin?: boolean; access?: string[] }) {
   const { isTipLogin = true, access } = option ?? {};
   const token = useLocalState<string>("token");

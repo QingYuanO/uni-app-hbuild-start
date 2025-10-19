@@ -1,5 +1,5 @@
 export default {
-  All:{
-    Hello: 'Hello',
-  }
+  All: {
+    Hello: "Hello",
+  },
 };

@@ -1,6 +1,6 @@
-import 'alova';
+import "alova";
 
-declare module 'alova' {
+declare module "alova" {
   export interface AlovaCustomTypes {
     meta: {
       hasLoading?: boolean;

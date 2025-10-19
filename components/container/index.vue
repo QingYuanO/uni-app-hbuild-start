@@ -1,48 +1,36 @@
 <!-- 包裹每个页面的组件，集成一些全局功能 -->
-<template>
-	<view :class="cn('bg-background text-foreground relative box-border', osName, $attrs.class as string)">
-		<slot name="header"></slot>
-		<view :style="{ paddingTop: `${contentTop}px`, paddingBottom: `${contentBottom}px` }">
-			<slot></slot>
-		</view>
-		<view id="container_footer" :class="cn('fixed inset-x-0 bottom-0 z-[300] box-border', props.footerClass)">
-			<slot name="footer"></slot>
-		</view>
-	</view>
-</template>
-
 <script lang="ts">
 export default {
-	name: 'Container',
-	options: {
-		addGlobalClass: true,
-		virtualHost: true,
-		styleIsolation: 'shared',
-		inheritAttrs: false,
-	},
+  name: "Container",
+  options: {
+    addGlobalClass: true,
+    virtualHost: true,
+    styleIsolation: "shared",
+    inheritAttrs: false,
+  },
 };
 </script>
 
 <script setup lang="ts">
 defineOptions({
-	name: 'container',
-	options: {
-		virtualHost: true,
-		addGlobalClass: true,
-		styleIsolation: 'shared',
-	},
+  name: "Container",
+  options: {
+    virtualHost: true,
+    addGlobalClass: true,
+    styleIsolation: "shared",
+  },
 });
 
 const props = withDefaults(
-	defineProps<{
-		/**
-		 * 是否需要登录
-		 */
-		needAuth?: boolean;
-		customClass?: string;
-		footerClass?: string;
-	}>(),
-	{}
+  defineProps<{
+    /**
+     * 是否需要登录
+     */
+    needAuth?: boolean;
+    customClass?: string;
+    footerClass?: string;
+  }>(),
+  {},
 );
 
 const { osName } = useSystemOs();
@@ -54,34 +42,46 @@ const instance = getCurrentInstance();
 const footerHeader = ref(0);
 
 const contentTop = computed(() => {
-	return slots.header ? getCustomNavHeight() : 0;
+  return slots.header ? getCustomNavHeight() : 0;
 });
 
 const contentBottom = computed(() => {
-	return slots.footer ? footerHeader.value : 0;
+  return slots.footer ? footerHeader.value : 0;
 });
 
 onMounted(() => {
-	if (slots.footer) {
-		getFooterHeight();
-	}
+  if (slots.footer) {
+    getFooterHeight();
+  }
 });
 
 onLoad(() => {});
 
 onShow(() => {});
 
-const getFooterHeight = () => {
-	const query = uni.createSelectorQuery().in(instance?.proxy);
-	query
-		.select('#container_footer')
-		.boundingClientRect((data: any) => {
-			footerHeader.value = data?.height ?? 0;
-		})
-		.exec();
-};
+function getFooterHeight() {
+  const query = uni.createSelectorQuery().in(instance?.proxy);
+  query
+    .select("#container_footer")
+    .boundingClientRect((data: any) => {
+      footerHeader.value = data?.height ?? 0;
+    })
+    .exec();
+}
 
 defineExpose({
-	getFooterHeight,
+  getFooterHeight,
 });
 </script>
+
+<template>
+  <view :class="cn('bg-background text-foreground relative box-border', osName, $attrs.class as string)">
+    <slot name="header" />
+    <view :style="{ paddingTop: `${contentTop}px`, paddingBottom: `${contentBottom}px` }">
+      <slot />
+    </view>
+    <view id="container_footer" :class="cn('fixed inset-x-0 bottom-0 z-[300] box-border', props.footerClass)">
+      <slot name="footer" />
+    </view>
+  </view>
+</template>

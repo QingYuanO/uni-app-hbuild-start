@@ -1,14 +1,14 @@
-import { createAlova } from 'alova';
-import fetchAdapter from 'alova/fetch';
-import { createApis, withConfigType, mountApis } from './createApis';
+import { createAlova } from "alova";
+import fetchAdapter from "alova/fetch";
+import { createApis, mountApis, withConfigType } from "./createApis";
 
 export const alovaInstance = createAlova({
-  baseURL: '/api/v3',
+  baseURL: "/api/v3",
   requestAdapter: fetchAdapter(),
-  beforeRequest: method => {},
-  responded: res => {
+  beforeRequest: (method) => {},
+  responded: (res) => {
     return res.json();
-  }
+  },
 });
 
 export const $$userConfigMap = withConfigType({});

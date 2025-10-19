@@ -1,10 +1,10 @@
-type UseInfiniteListParams<D> = {
+interface UseInfiniteListParams<D> {
   fetchListApi: (data: ListParams) => Promise<ListData<D>>;
   id?: string;
   defaultPageSize?: number;
   isAutoInitLoad?: boolean;
   isAutoFetchNext?: boolean;
-};
+}
 
 function useInfiniteList<D = unknown>(option: UseInfiniteListParams<D>) {
   const { fetchListApi, defaultPageSize = 10, isAutoInitLoad, isAutoFetchNext } = option;
@@ -34,11 +34,9 @@ function useInfiniteList<D = unknown>(option: UseInfiniteListParams<D>) {
     }
   });
 
-
-
-
   const initLoadList = async (externalSearch: SearchType = {}) => {
-    if (isInitLoading.value) return;
+    if (isInitLoading.value)
+      return;
     try {
       isInitLoading.value = true;
       const { search } = listParams.value;
@@ -58,17 +56,18 @@ function useInfiniteList<D = unknown>(option: UseInfiniteListParams<D>) {
         pageSize: listParams.value.pageSize,
         search: realSearch,
       };
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
-    } finally {
+    }
+    finally {
       isFirstLoading.value = false;
       isInitLoading.value = false;
-
     }
   };
   const fetchNextPage = async (externalSearch: SearchType = {}) => {
-
-    if (!hasNextPage.value || isFetchNext.value) return;
+    if (!hasNextPage.value || isFetchNext.value)
+      return;
     try {
       isFetchNext.value = true;
       const { pageNum, pageSize, search } = listParams.value;
@@ -88,7 +87,8 @@ function useInfiniteList<D = unknown>(option: UseInfiniteListParams<D>) {
         pageSize,
         search: realSearch,
       };
-    } catch (error) {
+    }
+    catch (error) {
       isFetchNext.value = false;
       console.log(error);
     }

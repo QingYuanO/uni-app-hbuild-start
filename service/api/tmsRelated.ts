@@ -1,6 +1,5 @@
-import { useRequest } from 'alova/client';
+import alovaInst from "..";
 
-import alovaInst from '..';
-
-export const loginCustomer = (data: AipRequest['useLoginCustomer']) =>
-	alovaInst.Post<AipResponse['useLoginCustomer']>('/bo/tmsRelated/loginCustomer', data);
+export function loginCustomer(data: AipRequest["useLoginCustomer"]) {
+  return alovaInst.Post<AipResponse["useLoginCustomer"]>("/bo/tmsRelated/loginCustomer", data);
+}

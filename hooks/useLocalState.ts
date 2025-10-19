@@ -1,5 +1,3 @@
-
-
 export default function useLocalState<D = unknown>(key: string, defaultValue?: D): Ref<D> {
   const value = customRef<D>((track, trigger) => {
     return {

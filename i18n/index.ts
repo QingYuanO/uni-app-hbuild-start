@@ -1,16 +1,16 @@
-import { createI18n } from 'vue-i18n';
+import { createI18n } from "vue-i18n";
 
-import en from '@/i18n/lang/en';
-import zhCn from '@/i18n/lang/zh-cn';
-import { useI18nStoreHook } from '@/store/i18n';
+import en from "@/i18n/lang/en";
+import zhCn from "@/i18n/lang/zh-cn";
+import { useI18nStoreHook } from "@/store/i18n";
 
 const messages = {
-  'zh-cn': {
+  "zh-cn": {
     message: {
       ...zhCn,
     },
   },
-  en: {
+  "en": {
     message: {
       ...en,
     },

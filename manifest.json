@@ -1,179 +1,179 @@
 {
-    "name": "Uniapp-Start",
-    "appid": "__UNI__EF88F13",
-    "description": "APP",
-    "versionName": "0.0.1",
-    "versionCode": 1,
-    "transformPx": false,
-    "easycom": {
-        "autoscan": true,
-        // 注意一定要放在custom里，否则无效，https://ask.dcloud.net.cn/question/131175
-        "custom": {
-            "^wd-(.*)": "wot-design-uni/components/wd-$1/wd-$1.vue"
-        }
+  "name": "Uniapp-Start",
+  "appid": "__UNI__EF88F13",
+  "description": "APP",
+  "locale": "auto",
+  "versionName": "0.0.1",
+  "versionCode": 1,
+  "transformPx": false,
+  "easycom": {
+    "autoscan": true,
+    // 注意一定要放在custom里，否则无效，https://ask.dcloud.net.cn/question/131175
+    "custom": {
+      "^wd-(.*)": "wot-design-uni/components/wd-$1/wd-$1.vue"
+    }
+  },
+  "uniStatistics": {
+    "enable": false
+  },
+  /* 5+App特有相关 */
+  "app-plus": {
+    "usingComponents": true,
+    "nvueStyleCompiler": "uni-app",
+    "compilerVersion": 3,
+    "splashscreen": {
+      "alwaysShowBeforeRender": true,
+      "waiting": true,
+      "autoclose": true,
+      "delay": 0
     },
-    /* 5+App特有相关 */
-    "app-plus": {
-        "usingComponents": true,
-        "nvueStyleCompiler": "uni-app",
-        "compilerVersion": 3,
-        "splashscreen": {
-            "alwaysShowBeforeRender": true,
-            "waiting": true,
-            "autoclose": true,
-            "delay": 0
+    "screenOrientation": [
+      "portrait-primary",
+      "portrait-secondary",
+      "landscape-primary",
+      "landscape-secondary"
+    ],
+    /* 模块配置 */
+    "modules": {
+      "VideoPlayer": {},
+      "Camera": {},
+      "Barcode": {},
+      "Share": {},
+      "Push": {}
+    },
+    "locales": {
+      "en": {
+        "name": "Uniapp-Start",
+        "android": {
+          "strings": {}
         },
-        "screenOrientation": [
-            "portrait-primary",
-            "portrait-secondary",
-            "landscape-primary",
-            "landscape-secondary"
+        // Android平台自定义字符串
+        "ios": {
+          "privacyDescription": {
+            "NSPhotoLibraryUsageDescription": "Uniapp-Start  Requesting your album permission for certain functions.",
+            "NSCameraUsageDescription": "Uniapp-Start requests that your camera be used for certain functions."
+          }
+        }
+      },
+      "zh": {
+        "name": "Uniapp-Start",
+        "android": {
+          "strings": {}
+        },
+        "ios": {
+          "privacyDescription": {
+            "NSPhotoLibraryUsageDescription": "Uniapp-Start 请求您的相册权限用于某些功能。",
+            "NSCameraUsageDescription": "Uniapp-Start 请求您的相机用于某些功能。"
+          }
+        }
+      }
+    },
+    /* 应用发布信息 */
+    "distribute": {
+      /* android打包配置 */
+      "android": {
+        "permissions": [
+          "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+          "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+          "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+          "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+          "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+          "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+          "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+          "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+          "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+          "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+          "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+          "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+          "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+          "<uses-feature android:name=\"android.hardware.camera\"/>",
+          "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+          "<uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\"/>"
         ],
-        /* 模块配置 */
-        "modules": {
-            "VideoPlayer": {},
-            "Camera": {},
-            "Barcode": {},
-            "Share": {},
-            "Push": {}
-        },
-        "locales": {
-            "en": {
-                "name": "Uniapp-Start",
-                "android": {
-                    "strings": {}
-                },
-                //Android平台自定义字符串  
-                "ios": {
-                    "privacyDescription": {
-                        "NSPhotoLibraryUsageDescription": "Uniapp-Start  Requesting your album permission for certain functions.",
-                        "NSCameraUsageDescription": "Uniapp-Start requests that your camera be used for certain functions."
-                    }
-                }
-            },
-            "zh": {
-                "name": "Uniapp-Start",
-                "android": {
-                    "strings": {}
-                },
-                "ios": {
-                    "privacyDescription": {
-                        "NSPhotoLibraryUsageDescription": "Uniapp-Start 请求您的相册权限用于某些功能。",
-                        "NSCameraUsageDescription": "Uniapp-Start 请求您的相机用于某些功能。"
-                    }
-                }
-            }
-        },
-        /* 应用发布信息 */
-        "distribute": {
-            /* android打包配置 */
-            "android": {
-                "permissions": [
-                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
-                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
-                    "<uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\"/>"
-                ],
-                "minSdkVersion": 31,
-                "targetSdkVersion": 34,
-                "abiFilters": [
-                    "armeabi-v7a",
-                    "arm64-v8a",
-                    "x86"
-                ],
-                "schemes": "flypost"
-            },
-            /* ios打包配置 */
-            "ios": {
-                "idfa": false,
-                "dSYMs": false,
-                "urltypes": "flypost",
-                "privacyDescription": {
-                    "NSPhotoLibraryUsageDescription": "Uniapp-Start  requests your photo album permission to upload your proof of purchase to help you quickly complete the courier declaration. Of course this is not a must, if you have doubts. You can choose to manually fill in the content of the page to complete the courier declaration.",
-                    "NSCameraUsageDescription": "Uniapp-Start  requests your camera to quickly scan and identify the tracking number barcode for quick tracking of your order. Of course, this is not necessary, if you have doubts, you can reject the request and return, you can choose to manually enter the tracking number to query the relevant logistics order."
-                }
-            },
-            /* SDK配置 */
-            "sdkConfigs": {
-                "share": {},
-                "push": {
-                    "unipush": {
-                        "icons": {
-                            "small": {
-                                "ldpi": "unpackage/res/icons/20x20.png"
-                            }
-                        }
-                    }
-                },
-                "ad": {}
-            },
-            "icons": {
-                "android": {
-                    "hdpi": "unpackage/res/icons/72x72.png",
-                    "xhdpi": "unpackage/res/icons/96x96.png",
-                    "xxhdpi": "unpackage/res/icons/144x144.png",
-                    "xxxhdpi": "unpackage/res/icons/192x192.png"
-                },
-                "ios": {
-                    "appstore": "unpackage/res/icons/1024x1024.png",
-                    "ipad": {
-                        "app": "unpackage/res/icons/76x76.png",
-                        "app@2x": "unpackage/res/icons/152x152.png",
-                        "notification": "unpackage/res/icons/20x20.png",
-                        "notification@2x": "unpackage/res/icons/40x40.png",
-                        "proapp@2x": "unpackage/res/icons/167x167.png",
-                        "settings": "unpackage/res/icons/29x29.png",
-                        "settings@2x": "unpackage/res/icons/58x58.png",
-                        "spotlight": "unpackage/res/icons/40x40.png",
-                        "spotlight@2x": "unpackage/res/icons/80x80.png"
-                    },
-                    "iphone": {
-                        "app@2x": "unpackage/res/icons/120x120.png",
-                        "app@3x": "unpackage/res/icons/180x180.png",
-                        "notification@2x": "unpackage/res/icons/40x40.png",
-                        "notification@3x": "unpackage/res/icons/60x60.png",
-                        "settings@2x": "unpackage/res/icons/58x58.png",
-                        "settings@3x": "unpackage/res/icons/87x87.png",
-                        "spotlight@2x": "unpackage/res/icons/80x80.png",
-                        "spotlight@3x": "unpackage/res/icons/120x120.png"
-                    }
-                }
-            }
-        },
-        "nativePlugins": {}
-    },
-    "h5": {
-        "title": " ",
-        "router": {
-            "mode": "history"
-        },
-        "devServer": {
-            "port": 3001
+        "minSdkVersion": 31,
+        "targetSdkVersion": 34,
+        "abiFilters": [
+          "armeabi-v7a",
+          "arm64-v8a",
+          "x86"
+        ],
+        "schemes": "flypost"
+      },
+      /* ios打包配置 */
+      "ios": {
+        "idfa": false,
+        "dSYMs": false,
+        "urltypes": "flypost",
+        "privacyDescription": {
+          "NSPhotoLibraryUsageDescription": "Uniapp-Start  requests your photo album permission to upload your proof of purchase to help you quickly complete the courier declaration. Of course this is not a must, if you have doubts. You can choose to manually fill in the content of the page to complete the courier declaration.",
+          "NSCameraUsageDescription": "Uniapp-Start  requests your camera to quickly scan and identify the tracking number barcode for quick tracking of your order. Of course, this is not necessary, if you have doubts, you can reject the request and return, you can choose to manually enter the tracking number to query the relevant logistics order."
         }
-    },
-    /* 小程序特有相关 */
-    "mp-weixin": {
-        "appid": "",
-        "setting": {
-            "urlCheck": false
+      },
+      /* SDK配置 */
+      "sdkConfigs": {
+        "share": {},
+        "push": {
+          "unipush": {
+            "icons": {
+              "small": {
+                "ldpi": "unpackage/res/icons/20x20.png"
+              }
+            }
+          }
         },
-        "usingComponents": true
+        "ad": {}
+      },
+      "icons": {
+        "android": {
+          "hdpi": "unpackage/res/icons/72x72.png",
+          "xhdpi": "unpackage/res/icons/96x96.png",
+          "xxhdpi": "unpackage/res/icons/144x144.png",
+          "xxxhdpi": "unpackage/res/icons/192x192.png"
+        },
+        "ios": {
+          "appstore": "unpackage/res/icons/1024x1024.png",
+          "ipad": {
+            "app": "unpackage/res/icons/76x76.png",
+            "app@2x": "unpackage/res/icons/152x152.png",
+            "notification": "unpackage/res/icons/20x20.png",
+            "notification@2x": "unpackage/res/icons/40x40.png",
+            "proapp@2x": "unpackage/res/icons/167x167.png",
+            "settings": "unpackage/res/icons/29x29.png",
+            "settings@2x": "unpackage/res/icons/58x58.png",
+            "spotlight": "unpackage/res/icons/40x40.png",
+            "spotlight@2x": "unpackage/res/icons/80x80.png"
+          },
+          "iphone": {
+            "app@2x": "unpackage/res/icons/120x120.png",
+            "app@3x": "unpackage/res/icons/180x180.png",
+            "notification@2x": "unpackage/res/icons/40x40.png",
+            "notification@3x": "unpackage/res/icons/60x60.png",
+            "settings@2x": "unpackage/res/icons/58x58.png",
+            "settings@3x": "unpackage/res/icons/87x87.png",
+            "spotlight@2x": "unpackage/res/icons/80x80.png",
+            "spotlight@3x": "unpackage/res/icons/120x120.png"
+          }
+        }
+      }
     },
-    "uniStatistics": {
-        "enable": false
+    "nativePlugins": {}
+  },
+  "h5": {
+    "title": " ",
+    "router": {
+      "mode": "history"
     },
-    "vueVersion": "3",
-    "locale": "auto"
+    "devServer": {
+      "port": 3001
+    }
+  },
+  /* 小程序特有相关 */
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false
+    },
+    "usingComponents": true
+  },
+  "vueVersion": "3"
 }

@@ -1,31 +1,31 @@
 {
-	"pages": [
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/login/index",
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom"
-			}
-		}
-	],
-	"subPackages": [],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "",
-		"navigationBarBackgroundColor": "#eceff7",
-		"backgroundColor": "#eceff7"
-	},
-	"easycom": {
-		"autoscan": true,
-		"custom": {
-			"^wd-(.*)": "wot-design-uni/components/wd-$1/wd-$1.vue"
-		}
-	}
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#eceff7",
+    "backgroundColor": "#eceff7"
+  },
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^wd-(.*)": "wot-design-uni/components/wd-$1/wd-$1.vue"
+    }
+  },
+  "subPackages": []
 }

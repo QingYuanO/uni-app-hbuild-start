@@ -1,17 +1,17 @@
+import type { ConfigProviderThemeVars } from "wot-design-uni";
+
 // src/composables/useTheme.ts
-import { ref } from 'vue';
+import { ref } from "vue";
 
-import type { ConfigProviderThemeVars } from 'wot-design-uni';
-
-const theme = ref<'light' | 'dark'>();
+const theme = ref<"light" | "dark">();
 const themeVars = ref<ConfigProviderThemeVars>();
 
 export function useTheme(vars?: ConfigProviderThemeVars) {
-	vars && (themeVars.value = vars);
+  vars && (themeVars.value = vars);
 
-	function toggleTheme(mode?: 'light' | 'dark') {
-		theme.value = mode || (theme.value === 'light' ? 'dark' : 'light');
-	}
+  function toggleTheme(mode?: "light" | "dark") {
+    theme.value = mode || (theme.value === "light" ? "dark" : "light");
+  }
 
-	return { theme, themeVars, toggleTheme };
+  return { theme, themeVars, toggleTheme };
 }

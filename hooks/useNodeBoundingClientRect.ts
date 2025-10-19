@@ -1,4 +1,4 @@
-export const useNodeBoundingClientRect = (selectors: string[]) => {
+export function useNodeBoundingClientRect(selectors: string[]) {
   const results = ref<Record<string, UniApp.NodeInfo>>({});
 
   const getNodes = () => {
@@ -8,12 +8,11 @@ export const useNodeBoundingClientRect = (selectors: string[]) => {
         results.value[selector] = data as UniApp.NodeInfo;
       }).exec();
     });
-
-  }
+  };
   onMounted(() => {
     nextTick(() => {
       getNodes();
-    })
+    });
   });
 
   return { nodeInfos: results, getNodes };
