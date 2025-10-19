@@ -10,8 +10,7 @@ const { t } = i18n.global;
  */
 export function getOpenerEventChannel() {
   const instance = getCurrentInstance()?.proxy;
-  // @ts-ignore
-  const eventChannel: UniApp.NavigateToSuccessOptions["eventChannel"] = instance?.getOpenerEventChannel?.();
+  const eventChannel = instance?.getOpenerEventChannel?.() as UniApp.NavigateToSuccessOptions["eventChannel"] | undefined;
 
   return eventChannel;
 }

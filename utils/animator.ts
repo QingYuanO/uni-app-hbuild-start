@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { animate } from "popmotion";
 
 export interface SpringConfig {

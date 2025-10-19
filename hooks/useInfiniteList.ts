@@ -22,18 +22,6 @@ function useInfiniteList<D = unknown>(option: UseInfiniteListParams<D>) {
 
   const hasNextPage = computed(() => listData.value.total > listData.value.items.length);
 
-  onLoad(() => {
-    if (isAutoInitLoad) {
-      initLoadList();
-    }
-  });
-
-  onReachBottom(() => {
-    if (isAutoFetchNext) {
-      fetchNextPage();
-    }
-  });
-
   const initLoadList = async (externalSearch: SearchType = {}) => {
     if (isInitLoading.value)
       return;
@@ -93,6 +81,17 @@ function useInfiniteList<D = unknown>(option: UseInfiniteListParams<D>) {
       console.log(error);
     }
   };
+  onLoad(() => {
+    if (isAutoInitLoad) {
+      initLoadList();
+    }
+  });
+
+  onReachBottom(() => {
+    if (isAutoFetchNext) {
+      fetchNextPage();
+    }
+  });
 
   return {
     listData,

@@ -26,7 +26,7 @@ export function getParent(name: string, k1: string[], k2?: string[]) {
           nextTick(() => {
             const child: any = {};
 
-            (k2 || []).map((key: string) => {
+            (k2 || []).forEach((key: string) => {
               if (proxy[key]) {
                 child[key] = proxy[key];
               }

@@ -1,44 +1,19 @@
-import path from "node:path";
+// import path from "node:path";
 
 const { addDynamicIconSelectors } = require("@iconify/tailwind");
 const animate = require("tailwindcss-animate");
 const tailwindcssPlugin = require("tailwindcss/plugin");
-const cssMacro = require("weapp-tailwindcss/css-macro");
-const { isMp } = require("./platform");
+// const cssMacro = require("weapp-tailwindcss/css-macro");
+// const { isMp } = require("./platform");
 
-function resolve(p) {
-  return path.resolve(__dirname, p);
-}
+// function resolve(p) {
+//   return path.resolve(__dirname, p);
+// }
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // darkMode: ['class'],
-  // safelist: ['dark'],
-  // corePlugins: {
-  // 	preflight: !isMp,
-  // },
-  // content: ['./index.html', './**/*.vue'].map(resolve),
-
-  // theme: {
-  // 	extend: {
-  // 		colors: {
-  // 			borurio: {
-  // 				primary: 'var(--main-color)',
-  // 				bg: 'var(--main-bg-color)',
-  // 				line: 'var(--main-line-color)',
-  // 				error: 'var(--main-error-color)',
-  // 				info: 'var(--main-info-color)',
-  // 				info2: 'var(--main-info-two-color)',
-  // 				success: 'var(--main-success-color)',
-  // 				sky: 'var(--main-sky-color)',
-  // 				'input-border': 'var(--input-border-color)',
-  // 			},
-  // 		},
-  // 		borderRadius: {
-  // 			normal: 'var(--normal-border-radius)',
-  // 		},
-  // 	},
-  // },
+  darkMode: ["class"],
+  safelist: ["dark"],
   plugins: [
     animate,
     addDynamicIconSelectors(),

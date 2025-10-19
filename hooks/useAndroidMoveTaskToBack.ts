@@ -6,9 +6,8 @@ export default function useAndroidMoveTaskToBack() {
     const deviceInfo = uni.getDeviceInfo();
 
     if (deviceInfo.platform === "android") {
-      const main = plus.android.runtimeMainActivity();
+      const main = plus.android.runtimeMainActivity() as any;
       plus.runtime.quit = function () {
-        // @ts-ignore
         main?.moveTaskToBack(false);
       };
     }

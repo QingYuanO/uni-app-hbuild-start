@@ -11,7 +11,7 @@ export function jumpToAppMarket() {
   const googlePlay = "com.android.vending";
 
   const androidPackName = "xxx";
-  if (plus.os.name == "Android") {
+  if (plus.os.name === "Android") {
     const Uri = plus.android.importClass("android.net.Uri") as any;
     const Intent = plus.android.importClass("android.content.Intent") as any;
     const main = plus.android.runtimeMainActivity() as any;

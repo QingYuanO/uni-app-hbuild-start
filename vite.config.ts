@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/postcss";
 import Components from "@uni-helper/vite-plugin-uni-components";
 import AutoImport from "unplugin-auto-import/vite";
 import { defineConfig } from "vite";
+import cssMacro from "weapp-tailwindcss/css-macro/postcss";
 import { UnifiedViteWeappTailwindcssPlugin as uvwt } from "weapp-tailwindcss/vite";
 
 // 注意： 打包成 h5 和 app 都不需要开启插件配置
@@ -57,7 +58,7 @@ export default defineConfig({
         tailwindcss({
           base: __dirname,
         }),
-        require("weapp-tailwindcss/css-macro/postcss"),
+        cssMacro,
       ],
     },
     preprocessorOptions: { scss: { additionalData: `` } },

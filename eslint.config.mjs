@@ -12,6 +12,9 @@ export default uni(
     rules: {
       "no-console": "off",
       "eslint-comments/no-unlimited-disable": "off",
+      "n/prefer-global/process": "off",
+      "unused-imports/no-unused-vars": "off",
+      "regexp/no-unused-capturing-group": "off",
 
     },
   },
