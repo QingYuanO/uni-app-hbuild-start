@@ -75,7 +75,7 @@ defineExpose({
 </script>
 
 <template>
-  <view :class="cn('bg-background text-foreground relative box-border', osName, $attrs.class as string)">
+  <view :class="cn('relative box-border bg-background text-foreground', osName, $attrs.class as string)">
     <slot name="header" />
     <view :style="{ paddingTop: `${contentTop}px`, paddingBottom: `${contentBottom}px` }">
       <slot />

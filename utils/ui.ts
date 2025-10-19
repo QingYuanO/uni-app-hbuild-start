@@ -107,7 +107,6 @@ export function getSafeArea() {
 
 /**
  * 获取常规Model 参数
- * @returns
  */
 export function getModelOption() {
   return {

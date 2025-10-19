@@ -17,12 +17,34 @@ export default uni(
       "regexp/no-unused-capturing-group": "off",
 
     },
+
   },
   ...compat.config({
+    plugins: ["tailwindcss"],
     // https://github.com/francoismassart/eslint-plugin-tailwindcss
     extends: ["plugin:tailwindcss/recommended"],
+    settings: {
+      tailwindcss: {
+        callees: ["classnames", "clsx", "cn"],
+        config: `${import.meta.dirname}/styles/tailwind.css`,
+        cssFiles: [
+          "**/*.css",
+          "!**/node_modules",
+          "!**/.*",
+          "!**/dist",
+          "!**/build",
+        ],
+        cssFilesRefreshRate: 5_000,
+        removeDuplicates: true,
+        skipClassAttribute: false,
+        whitelist: [],
+        tags: [],
+        classRegex: "[A-Za-z]?[A-Za-z-]*[Cc]lass",
+      },
+    },
     rules: {
       "tailwindcss/no-custom-classname": "off",
     },
   }),
+
 );
