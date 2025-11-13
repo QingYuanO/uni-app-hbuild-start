@@ -1,17 +1,21 @@
 <!-- 首页 -->
 <script setup lang="ts">
+import { useQuery } from "@tanstack/vue-query";
 import { animate } from "popmotion";
 import { getSingleImg } from "@/service/api/image";
 import { useThemeStore } from "@/store/theme";
 
 const themeStore = useThemeStore();
 
-const data = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-
 const translateX = ref(0);
 
+const { data } = useQuery({
+  queryKey: ["getSingleImg"],
+  queryFn: getSingleImg,
+});
+
 onLoad(() => {
-  getSingleImg();
+  // getSingleImg();
 });
 
 function handleAnimation() {
