@@ -35,6 +35,8 @@ const props = withDefaults(
 
 const { osName } = useSystemOs();
 
+const themeStore = useThemeStore();
+
 const slots = useSlots();
 
 const instance = getCurrentInstance();
@@ -47,6 +49,24 @@ const contentTop = computed(() => {
 
 const contentBottom = computed(() => {
   return slots.footer ? footerHeader.value : 0;
+});
+
+const pageMetaBgColor = computed(() => {
+  return themeStore.theme === "dark" ? "#0a0a0a" : "#ffffff";
+});
+
+watch(() => themeStore.theme, (newVal) => {
+  uni.setBackgroundColor({
+    backgroundColor: pageMetaBgColor.value,
+    backgroundColorTop: pageMetaBgColor.value,
+    backgroundColorBottom: pageMetaBgColor.value,
+    success(result) {
+      console.log(result);
+    },
+  });
+  uni.setBackgroundTextStyle({
+    textStyle: newVal === "dark" ? "light" : "dark",
+  });
 });
 
 onMounted(() => {
@@ -75,13 +95,15 @@ defineExpose({
 </script>
 
 <template>
-  <view :class="cn('relative box-border bg-background text-foreground', osName, $attrs.class as string)">
-    <slot name="header" />
-    <view :style="{ paddingTop: `${contentTop}px`, paddingBottom: `${contentBottom}px` }">
-      <slot />
+  <wd-config-provider :theme="themeStore.theme">
+    <view :class="cn('relative box-border min-h-screen  bg-background text-foreground', themeStore.theme, osName, $attrs.class as string)">
+      <slot name="header" />
+      <view :style="{ paddingTop: `${contentTop}px`, paddingBottom: `${contentBottom}px` }">
+        <slot />
+      </view>
+      <view id="container_footer" :class="cn('fixed inset-x-0 bottom-0 z-[300] box-border', props.footerClass)">
+        <slot name="footer" />
+      </view>
     </view>
-    <view id="container_footer" :class="cn('fixed inset-x-0 bottom-0 z-[300] box-border', props.footerClass)">
-      <slot name="footer" />
-    </view>
-  </view>
+  </wd-config-provider>
 </template>

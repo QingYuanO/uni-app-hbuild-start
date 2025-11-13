@@ -40,25 +40,32 @@ declare global {
     total: number;
   }
 
+  interface ExtraConfig {
+    showLoading?: boolean;
+    loadingText?: string;
+    showErrorToast?: boolean;
+    delay?: number;
+    [key: string]: any;
+  }
+
   /**
    * 请求数据类型
    */
   interface AipRequest {
-    useLoginCustomer: {
-      country: string;
-      phone: string;
-      password?: string;
-      businessesCode: number;
-      verificationCode?: string;
-      notificationCode?: string;
-    };
+
   }
 
   /**
    * 返回数据类型
    */
   interface AipResponse {
-    useLoginCustomer: IUser;
+    getSingleImg: any;
+  }
+}
+
+declare module "@uni-helper/uni-network" {
+  interface UnConfig {
+    extraConfig?: ExtraConfig;
   }
 }
 

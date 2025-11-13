@@ -17,9 +17,8 @@
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "",
-    "navigationBarBackgroundColor": "#eceff7",
-    "backgroundColor": "#eceff7"
+    "navigationBarTitleText": ""
+
   },
   "easycom": {
     "autoscan": true,

@@ -1,6 +1,5 @@
-import AdapterUniapp from "@alova/adapter-uniapp";
-import { createAlova } from "alova";
-import VueHook from "alova/vue";
+import { un } from "@uni-helper/uni-network";
+
 import i18n from "@/i18n";
 
 const { t } = i18n.global;
@@ -27,86 +26,66 @@ if (process.env.NODE_ENV === "development") {
   console.log(`开发环境-BaseUrl-${baseUrl}`);
 }
 
-const alovaInst = createAlova({
-  baseURL: baseUrl,
-  beforeRequest(method) {
-    const hasLoading = method.meta?.hasLoading ?? true;
-    const loadingText = method.meta?.loadingText;
-
-    if (hasLoading) {
-      uni.showLoading({
-        title: loadingText || "请求中...",
-      });
-    }
-  },
-  responded: {
-    onSuccess: async (response, method) => {
-      if (response.statusCode >= 400) {
-        throw new Error(response.errMsg);
-      }
-
-      const successResponse = response as UniApp.RequestSuccessCallbackResult;
-
-      const data = successResponse.data as CustomResponseData;
-
-      const header = successResponse.header;
-
-      const hasErrorTip = method.meta?.hasErrorTip ?? true;
-
-      if (data.code !== 200) {
-        const toLogin = () => {
-          setTimeout(() => {
-            uni.removeStorageSync("userData");
-            uni.removeStorageSync("token");
-            uni.reLaunch({
-              url: "/pages/login/index",
-            });
-          }, 500);
-        };
-
-        if (hasErrorTip) {
-          setTimeout(() => {
-            uni.showToast({
-              title: data.msg ? t(data.msg) || "Error" : "Error",
-              icon: "none",
-              duration: 2000,
-            });
-          }, 300);
-        }
-
-        if (data.code === 2003) {
-          toLogin();
-        }
-        if (data.code === 2005) {
-          toLogin();
-        }
-        throw new Error(t(data.msg) || "Error");
-      }
-
-      return data.data;
-    },
-
-    onError: (err, method) => {
-      const hasErrorTip = method.meta?.hasErrorTip ?? true;
-
-      if (hasErrorTip) {
-        uni.showToast({
-          title: err.message ? err.message : "Error",
-          icon: "none",
-          duration: 2000,
-        });
-      }
-    },
-
-    onComplete: async (method) => {
-      const hasLoading = method.meta?.hasLoading ?? true;
-      if (hasLoading) {
-        uni.hideLoading();
-      }
-    },
-  },
-  ...AdapterUniapp(),
-  statesHook: VueHook,
+const instance = un.create({
+  baseUrl,
 });
 
-export default alovaInst;
+// 添加请求拦截器
+instance.interceptors.request.use(
+  (config) => {
+    console.log(config);
+
+    config.extraConfig = {
+      showLoading: true,
+      showErrorToast: true,
+      loadingText: "请求中...",
+      delay: 500,
+      ...(config.extraConfig ?? {}),
+    };
+
+    const hasLoading = config.extraConfig?.showLoading ?? true;
+    const loadingText = config.extraConfig?.loadingText;
+
+    if (hasLoading) {
+      const timer = setTimeout(() => {
+        uni.showLoading({
+          title: loadingText || "请求中...",
+        });
+      }, config.extraConfig?.delay ?? 0);
+      config.extraConfig.timer = timer;
+    }
+    return config;
+  },
+  (error) => {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+  },
+);
+
+// 添加响应拦截器
+instance.interceptors.response.use(
+  (response) => {
+    console.log(response);
+
+    const extraConfig = (response.config?.extraConfig ?? {}) as ExtraConfig;
+
+    if (extraConfig.showLoading) {
+      uni.hideLoading();
+    }
+
+    if (extraConfig.timer) {
+      clearTimeout(extraConfig.timer);
+    }
+
+    // 2xx 范围内的状态码都会触发该函数
+    // 对响应数据做点什么
+    return response;
+  },
+  (error) => {
+    // 超出 2xx 范围的状态码都会触发该函数
+    // 对响应错误做点什么
+    return Promise.reject(error);
+  },
+);
+
+export default instance;
