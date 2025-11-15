@@ -42,6 +42,7 @@ function handleAnimation() {
     </template>
 
     <view
+      class=""
       style="width: 100rpx; height: 100rpx; background-color: red"
       :style="{ transform: `translateX(${translateX}px)` }"
     />

@@ -56,17 +56,17 @@ const pageMetaBgColor = computed(() => {
 });
 
 watch(() => themeStore.theme, (newVal) => {
-  uni.setBackgroundColor({
-    backgroundColor: pageMetaBgColor.value,
-    backgroundColorTop: pageMetaBgColor.value,
-    backgroundColorBottom: pageMetaBgColor.value,
-    success(result) {
-      console.log(result);
-    },
-  });
-  uni.setBackgroundTextStyle({
-    textStyle: newVal === "dark" ? "light" : "dark",
-  });
+  // uni.setBackgroundColor({
+  //   backgroundColor: pageMetaBgColor.value,
+  //   backgroundColorTop: pageMetaBgColor.value,
+  //   backgroundColorBottom: pageMetaBgColor.value,
+  //   success(result) {
+  //     console.log(result);
+  //   },
+  // });
+  // uni.setBackgroundTextStyle({
+  //   textStyle: newVal === "dark" ? "light" : "dark",
+  // });
 });
 
 onMounted(() => {
@@ -101,7 +101,7 @@ defineExpose({
       <view :style="{ paddingTop: `${contentTop}px`, paddingBottom: `${contentBottom}px` }">
         <slot />
       </view>
-      <view id="container_footer" :class="cn('fixed inset-x-0 bottom-0 z-[300] box-border', props.footerClass)">
+      <view id="container_footer" :class="cn('fixed inset-x-0 bottom-0 z-300 box-border', props.footerClass)">
         <slot name="footer" />
       </view>
     </view>
