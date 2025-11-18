@@ -2,9 +2,9 @@
 @source not "unpackage";
 
 @plugin "weapp-tailwindcss/css-macro";
+@plugin "tailwindcss-motion";
 @config "../tailwind.config.js";
-
-
+@import "tw-animate-css";
 
 
 .light {
@@ -79,4 +79,27 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 8rpx);
 
+}
+
+
+@utility flex-col-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@utility flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+@utility all-unset{
+  all: unset;
+}
+
+@utility status-bar-height{
+  height: var(--status-bar-height);
 }

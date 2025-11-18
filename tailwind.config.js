@@ -13,9 +13,6 @@ module.exports = {
     animate,
     addDynamicIconSelectors(),
     require("tailwind-scrollbar")({ preferredStrategy: "pseudoelements", nocompatible: true }),
-    require("@tailwindcss/typography"),
-    require("tailwindcss-animate"),
-
     tailwindcssPlugin(({ addUtilities, addVariant, matchUtilities, theme }) => {
       const os = ["ios", "android"];
       os.forEach((t) => {
@@ -66,31 +63,6 @@ module.exports = {
         },
         { values: theme("spacing") },
       );
-      addUtilities({
-        ".flex-col-center": {
-          "display": "flex",
-          "align-items": "center",
-          "justify-content": "center",
-          "flex-direction": "column",
-        },
-        ".flex-center": {
-          "display": "flex",
-          "align-items": "center",
-          "justify-content": "center",
-          "flex-direction": "row",
-        },
-        ".all-unset": {
-          all: "unset",
-        },
-        ".borurio-panel": {
-          "background-color": "white",
-          "border-radius": "10px",
-          "padding": "10px",
-        },
-        ".status-bar-height": {
-          height: "var(--status-bar-height)",
-        },
-      });
     }),
   ],
 };
