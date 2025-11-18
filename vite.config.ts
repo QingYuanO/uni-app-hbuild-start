@@ -1,4 +1,4 @@
-import { resolve } from "node:path";
+import path, { resolve } from "node:path";
 import uni from "@dcloudio/vite-plugin-uni";
 import tailwindcss from "@tailwindcss/postcss";
 import Components from "@uni-helper/vite-plugin-uni-components";
@@ -6,7 +6,6 @@ import AutoImport from "unplugin-auto-import/vite";
 import { defineConfig } from "vite";
 import cssMacro from "weapp-tailwindcss/css-macro/postcss";
 import { UnifiedViteWeappTailwindcssPlugin as uvwt } from "weapp-tailwindcss/vite";
-
 // 注意： 打包成 h5 和 app 都不需要开启插件配置
 const isH5 = process.env.UNI_PLATFORM === "h5";
 const isApp = process.env.UNI_PLATFORM === "app";
@@ -25,6 +24,7 @@ export default defineConfig({
       tailwindcss: {
         v4: {
           base: __dirname,
+          cssEntries: [path.resolve(__dirname, "styles/index.css")],
         },
       },
     }),
@@ -68,7 +68,7 @@ export default defineConfig({
     __VUE_I18N_LEGACY_API__: false,
   },
   build: {
-    minify: 'esbuild',
+    minify: "esbuild",
     terserOptions: undefined,
     rollupOptions: {},
   },

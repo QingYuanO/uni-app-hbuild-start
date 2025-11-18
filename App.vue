@@ -73,12 +73,6 @@ function stepMessagePush() {
 }
 </script>
 
-<style lang="scss">
-@import './styles/tailwind.css';
+<style src="./styles/index.css">
 
-@import './styles/theme.css';
-
-page {
-  @apply bg-white text-[#0a0a0a] dark:bg-[#0a0a0a] dark:text-white;
-}
 </style>
