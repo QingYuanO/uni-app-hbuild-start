@@ -42,7 +42,7 @@ function handleAnimation() {
     </template>
 
     <view
-      class="size-25 bg-primary"
+      class="size-25 bg-primary "
       :style="{ transform: `translateX(${translateX}px)` }"
     />
     <view class="icon-[lets-icons--date-range]" />
