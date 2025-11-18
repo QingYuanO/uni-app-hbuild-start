@@ -1,6 +1,3 @@
-// import path from "node:path";
-
-const { addDynamicIconSelectors } = require("@iconify/tailwind");
 const tailwindcssPlugin = require("tailwindcss/plugin");
 
 /** @type {import('tailwindcss').Config} */
@@ -9,9 +6,8 @@ module.exports = {
   // safelist: ["dark"],
   darkMode: ["variant", ":is(.dark &)"],
   plugins: [
-    addDynamicIconSelectors(),
     require("tailwind-scrollbar")({ preferredStrategy: "pseudoelements", nocompatible: true }),
-    tailwindcssPlugin(({ addUtilities, addVariant, matchUtilities, theme }) => {
+    tailwindcssPlugin(({ addVariant, matchUtilities, theme }) => {
       const os = ["ios", "android"];
       os.forEach((t) => {
         addVariant(t, `.${t} &`);

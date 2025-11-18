@@ -3,6 +3,7 @@
 
 @plugin "weapp-tailwindcss/css-macro";
 @plugin "tailwindcss-motion";
+@plugin "@iconify/tailwind4";
 @config "../tailwind.config.js";
 @import "tw-animate-css";
 

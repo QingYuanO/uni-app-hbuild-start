@@ -45,6 +45,7 @@ function handleAnimation() {
       class="size-25 bg-primary"
       :style="{ transform: `translateX(${translateX}px)` }"
     />
+    <view class="icon-[lets-icons--date-range]" />
     <wd-button @click="handleAnimation">
       动画
     </wd-button>
