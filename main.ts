@@ -4,6 +4,7 @@ import * as Pinia from "pinia";
 import { createSSRApp } from "vue";
 import App from "./App.vue";
 import i18n from "./i18n";
+import "./router";
 import "abortcontroller-polyfill/dist/abortcontroller-polyfill-only";
 
 export function createApp() {

@@ -35,23 +35,23 @@ instance.interceptors.request.use(
   (config) => {
     console.log(config);
 
-    config.extraConfig = {
+    config.meta = {
       showLoading: true,
       showErrorToast: true,
       loadingText: "请求中...",
       delay: 500,
-      ...(config.extraConfig ?? {}),
+      ...(config.meta ?? {}),
     };
 
-    const hasLoading = config.extraConfig?.showLoading;
-    const loadingText = config.extraConfig?.loadingText;
+    const hasLoading = config.meta?.showLoading;
+    const loadingText = config.meta?.loadingText;
 
     if (hasLoading) {
       const timer = setTimeout(() => {
         uni.showLoading({
           title: loadingText,
         });
-      }, config.extraConfig.delay);
+      }, config.meta.delay);
       config.extraConfig.timer = timer;
     }
     return config;
@@ -67,14 +67,14 @@ instance.interceptors.response.use(
   (response) => {
     console.log(response);
 
-    const extraConfig = (response.config?.extraConfig ?? {}) as ExtraConfig;
+    const meta = (response.config?.meta ?? {}) as MetaData;
 
-    if (extraConfig.showLoading) {
+    if (meta.showLoading) {
       uni.hideLoading();
     }
 
-    if (extraConfig.timer) {
-      clearTimeout(extraConfig.timer);
+    if (meta.timer) {
+      clearTimeout(meta.timer);
     }
 
     // 2xx 范围内的状态码都会触发该函数

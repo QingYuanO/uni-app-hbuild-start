@@ -7,6 +7,9 @@ import { useThemeStore } from "@/store/theme";
 
 const themeStore = useThemeStore();
 
+const toast = useToast();
+const message = useMessage();
+
 const translateX = ref(0);
 
 const { data } = useQuery({
@@ -15,7 +18,7 @@ const { data } = useQuery({
 });
 
 onLoad(() => {
-  // getSingleImg();
+
 });
 
 function handleAnimation() {
@@ -33,6 +36,13 @@ function handleAnimation() {
     },
   });
 }
+
+function handleToast() {
+  toast.show("提示信息");
+}
+function handleMessage() {
+  message.alert("操作成功");
+}
 </script>
 
 <template>
@@ -41,21 +51,28 @@ function handleAnimation() {
       <wd-navbar fixed safe-area-inset-top title="首页" />
     </template>
 
-    <view
-      class="size-25 bg-primary "
-      :style="{ transform: `translateX(${translateX}px)` }"
-    />
-    <view class="icon-[lets-icons--date-range]" />
-    <wd-button @click="handleAnimation">
-      动画
-    </wd-button>
-    <wd-button @click="themeStore.setTheme('dark')">
-      暗色模式
-    </wd-button>
+    <view class="flex flex-col gap-y-4">
+      <view>
+        <view class="size-25 bg-primary " :style="{ transform: `translateX(${translateX}px)` }" />
 
-    <wd-button @click="themeStore.setTheme('light')">
-      亮色模式
-    </wd-button>
+        <wd-button @click="handleAnimation">
+          动画
+        </wd-button>
+      </view>
+      <wd-button @click="themeStore.setTheme('dark')">
+        暗色模式
+      </wd-button>
+
+      <wd-button @click="themeStore.setTheme('light')">
+        亮色模式
+      </wd-button>
+      <wd-button @click="handleToast">
+        Toast
+      </wd-button>
+      <wd-button @click="handleMessage">
+        Message
+      </wd-button>
+    </view>
   </Container>
 </template>
 

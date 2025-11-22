@@ -1,17 +1,8 @@
 <!-- 包裹每个页面的组件，集成一些全局功能 -->
-<script lang="ts">
-export default {
-  name: "Container",
-  options: {
-    addGlobalClass: true,
-    virtualHost: true,
-    styleIsolation: "shared",
-    inheritAttrs: false,
-  },
-};
-</script>
 
 <script setup lang="ts">
+import { router } from "@/router";
+
 defineOptions({
   name: "Container",
   options: {
@@ -37,6 +28,8 @@ const { osName } = useSystemOs();
 
 const themeStore = useThemeStore();
 
+const user = useUserStore();
+
 const slots = useSlots();
 
 const instance = getCurrentInstance();
@@ -51,31 +44,19 @@ const contentBottom = computed(() => {
   return slots.footer ? footerHeader.value : 0;
 });
 
-const pageMetaBgColor = computed(() => {
-  return themeStore.theme === "dark" ? "#0a0a0a" : "#ffffff";
-});
-
-watch(() => themeStore.theme, (newVal) => {
-  // uni.setBackgroundColor({
-  //   backgroundColor: pageMetaBgColor.value,
-  //   backgroundColorTop: pageMetaBgColor.value,
-  //   backgroundColorBottom: pageMetaBgColor.value,
-  //   success(result) {
-  //     console.log(result);
-  //   },
-  // });
-  // uni.setBackgroundTextStyle({
-  //   textStyle: newVal === "dark" ? "light" : "dark",
-  // });
-});
-
 onMounted(() => {
   if (slots.footer) {
     getFooterHeight();
   }
 });
 
-onLoad(() => {});
+onLoad(() => {
+  console.log(router.currentPage());
+
+  // if (!user.token) {
+  //   router.login({ reLaunch: true });
+  // }
+});
 
 onShow(() => {});
 
@@ -105,5 +86,8 @@ defineExpose({
         <slot name="footer" />
       </view>
     </view>
+
+    <wd-toast />
+    <wd-message-box />
   </wd-config-provider>
 </template>

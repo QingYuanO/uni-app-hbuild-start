@@ -40,7 +40,7 @@ declare global {
     total: number;
   }
 
-  interface ExtraConfig {
+  interface MetaData {
     showLoading?: boolean;
     loadingText?: string;
     showErrorToast?: boolean;
@@ -65,7 +65,7 @@ declare global {
 
 declare module "@uni-helper/uni-network" {
   interface UnConfig {
-    extraConfig?: ExtraConfig;
+    meta?: MetaData;
   }
 }
 
