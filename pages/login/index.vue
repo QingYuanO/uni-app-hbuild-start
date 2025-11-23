@@ -40,7 +40,7 @@ function handleLogin() {
 </script>
 
 <template>
-  <Container title="登录">
+  <Container title="登录" :need-auth="false">
     <view class="flex flex-col gap-y-5 px-5 pt-5">
       <wd-form
         ref="form" :model="formData"
