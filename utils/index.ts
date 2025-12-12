@@ -1,9 +1,14 @@
 import type { CnOptions } from "@weapp-tailwindcss/variants";
-import { cn as tvCn } from "@weapp-tailwindcss/variants";
+import { create } from "@weapp-tailwindcss/variants";
 import i18n from "@/i18n";
 
 const { t } = i18n.global;
-
+const { tv, cn: tvCn } = create({
+  // #ifndef MP-WEIXIN
+  escape: false,
+  unescape: false,
+  // #endif
+});
 /**
  * 获取小程序路由EventChannel
  * @returns UniApp.EventChannel
@@ -88,3 +93,4 @@ export * from "./lang";
 export * from "./reg";
 export * from "./storage";
 export * from "./ui";
+export { tv };

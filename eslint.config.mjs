@@ -3,20 +3,33 @@ import uni from "@uni-helper/eslint-config";
 
 const compat = new FlatCompat();
 export default uni(
-
   {
+    ignores: [
+      "uni_modules/**/*",
+    ],
     stylistic: {
       quotes: "double",
       semi: true,
     },
+
     rules: {
       "no-console": "off",
       "eslint-comments/no-unlimited-disable": "off",
       "n/prefer-global/process": "off",
       "unused-imports/no-unused-vars": "off",
       "regexp/no-unused-capturing-group": "off",
+      "vue/max-attributes-per-line": [
+        "error",
+        {
+          singleline: {
+            max: 3,
+          },
+          multiline: {
+            max: 3,
+          },
+        },
+      ],
     },
-
   },
   ...compat.config({
     plugins: ["tailwindcss"],
@@ -26,13 +39,7 @@ export default uni(
       tailwindcss: {
         callees: ["classnames", "clsx", "cn"],
         config: `${import.meta.dirname}/styles/tailwind.css`,
-        cssFiles: [
-          "**/*.css",
-          "!**/node_modules",
-          "!**/.*",
-          "!**/dist",
-          "!**/build",
-        ],
+        cssFiles: ["**/*.css", "!**/node_modules", "!**/.*", "!**/dist", "!**/build"],
         cssFilesRefreshRate: 5_000,
         removeDuplicates: true,
         skipClassAttribute: false,
@@ -43,8 +50,6 @@ export default uni(
     },
     rules: {
       "tailwindcss/no-custom-classname": "off",
-      "tailwindcss/enforces-negative-arbitrary-values": "warn",
     },
   }),
-
 );

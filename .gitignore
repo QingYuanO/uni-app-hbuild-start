@@ -22,8 +22,7 @@ dist
 
 .env.development
 
-unpackage/cache
-unpackage/release
+unpackage/
 
 types/auto-imports.d.ts
 types/components.d.ts
