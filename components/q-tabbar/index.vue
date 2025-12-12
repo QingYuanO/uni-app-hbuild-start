@@ -13,8 +13,14 @@ defineOptions({
 const tabbarStore = useTabbarStore();
 
 function handleTabbarChange({ value }: { value: string }) {
-  tabbarStore.activeTabbar = value;
-  router.switchTab(value);
+  router.push({
+    path: `/${value}`,
+    mode: "switchTab",
+    success: () => {
+      tabbarStore.setActiveTabbar(value);
+    },
+
+  });
 }
 </script>
 

@@ -38,14 +38,6 @@ export default defineConfig({
           from: "wot-design-uni",
           imports: ["useToast", "useMessage", "useNotify", "CommonUtil"],
         },
-        {
-          from: "alova/client",
-          imports: ["usePagination", "useRequest"],
-        },
-        {
-          from: "@weapp-tailwindcss/variants",
-          imports: ["tv", "createTV", "cnBase"],
-        },
       ],
       dts: "types/auto-imports.d.ts",
       dirs: ["hooks/**", "store/**", "utils/**"],

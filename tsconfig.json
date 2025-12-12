@@ -11,7 +11,7 @@
       "@/*": ["./*"]
     },
     "resolveJsonModule": true,
-    "types": ["@dcloudio/types", "@uni-helper/uni-app-types", "wot-design-uni/global"],
+    "types": ["@dcloudio/types", "@uni-helper/uni-app-types", "wot-design-uni/global", "./uni_modules/z-paging/types"],
     "strict": true,
     "noImplicitThis": true,
     "esModuleInterop": true,

@@ -7,8 +7,7 @@ import { useThemeStore } from "@/store/theme";
 
 const themeStore = useThemeStore();
 
-const toast = useToast();
-const message = useMessage();
+const { toast, messageBox } = useFeedback();
 
 const translateX = ref(0);
 
@@ -41,12 +40,12 @@ function handleToast() {
   toast.show("提示信息");
 }
 function handleMessage() {
-  message.alert("操作成功");
+  messageBox.alert("操作成功");
 }
 </script>
 
 <template>
-  <Container title="首页" is-tabbar>
+  <container-paging title="首页" is-tabbar custom-class="py-1.5">
     <view class="flex flex-col gap-y-4 px-4">
       <view>
         <view class="size-25 bg-primary " :style="{ transform: `translateX(${translateX}px)` }" />
@@ -69,7 +68,7 @@ function handleMessage() {
         Message
       </wd-button>
     </view>
-  </Container>
+  </container-paging>
 </template>
 
 <style lang="scss" scoped></style>

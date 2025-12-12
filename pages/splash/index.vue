@@ -17,7 +17,9 @@ onLoad(() => {
 </script>
 
 <template>
-  <div />
+  <container-paging :need-auth="false">
+    <div />
+  </container-paging>
 </template>
 
 <style scoped>

@@ -1,0 +1,8 @@
+
+
+.cover-wd {
+  --wot-color-theme:var(--primary);
+  --wot-dark-color:var(--foreground);
+  --wot-dark-background:var(--background);
+  --wot-color-border-light:var(--border);
+}

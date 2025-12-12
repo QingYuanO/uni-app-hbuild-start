@@ -8,7 +8,7 @@ const iconPath = {
 };
 
 const useTabbarStore = defineStore("tabbar", () => {
-  const activeTabbar = ref(router.pageConfig.home);
+  const activeTabbar = ref(storage.get("activeTabbar") || router.pageConfig.home); ;
 
   const tabbarList = ref(router.tabs.map(item => ({
     ...item,
@@ -17,10 +17,14 @@ const useTabbarStore = defineStore("tabbar", () => {
     value: 0,
 
   })));
-
+  const setActiveTabbar = (value: string) => {
+    activeTabbar.value = value;
+    storage.set("activeTabbar", value);
+  };
   return {
     activeTabbar,
     tabbarList,
+    setActiveTabbar,
   };
 });
 
