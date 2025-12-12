@@ -9,6 +9,7 @@ import "abortcontroller-polyfill/dist/abortcontroller-polyfill-only";
 
 export function createApp() {
   const app = createSSRApp(App);
+  app.use(store);
   app.use(i18n);
   app.use(VueQueryPlugin, {
     queryClientConfig: {

@@ -7,8 +7,6 @@ import { useThemeStore } from "@/store/theme";
 
 const themeStore = useThemeStore();
 
-const { toast, messageBox } = useFeedback();
-
 const translateX = ref(0);
 
 const { data } = useQuery({
@@ -35,13 +33,6 @@ function handleAnimation() {
     },
   });
 }
-
-function handleToast() {
-  toast.show("提示信息");
-}
-function handleMessage() {
-  messageBox.alert("操作成功");
-}
 </script>
 
 <template>
@@ -54,19 +45,11 @@ function handleMessage() {
           动画
         </wd-button>
       </view>
-      <wd-button @click="themeStore.setTheme('dark')">
-        暗色模式
-      </wd-button>
 
-      <wd-button @click="themeStore.setTheme('light')">
-        亮色模式
-      </wd-button>
-      <wd-button @click="handleToast">
-        Toast
-      </wd-button>
-      <wd-button @click="handleMessage">
-        Message
-      </wd-button>
+      <view class="fixed right-4 bottom-40 flex-center size-10 rounded-full bg-foreground text-background opacity-90 shadow" @click="themeStore.setTheme(themeStore.theme === 'light' ? 'dark' : 'light')">
+        <view v-if="themeStore.theme === 'light'" class="icon-[akar-icons--moon] text-lg" />
+        <view v-else class="icon-[akar-icons--sun] text-lg" />
+      </view>
     </view>
   </container-paging>
 </template>
