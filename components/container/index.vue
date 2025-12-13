@@ -22,19 +22,23 @@ const props = withDefaults(
     footerClass?: string;
     title?: string;
     isTabbar?: boolean;
+    linearGradientHeight?: number;
+    hasBack?: boolean;
+    linearGradientFrom?: string;
+    linearGradientTo?: string;
+    navbarClass?: string;
   }>(),
   {
     needAuth: true,
     title: "",
     isTabbar: false,
+    linearGradientHeight: 200,
+    hasBack: false,
+    linearGradientFrom: "#E8E6FC",
+    linearGradientTo: "#e8e6fc07",
+    navbarClass: "",
   },
 );
-
-const { osName } = useSystemOs();
-
-const themeStore = useThemeStore();
-
-const user = useUserStore();
 
 const slots = useSlots();
 
@@ -49,6 +53,14 @@ const contentTop = computed(() => {
 const contentBottom = computed(() => {
   return slots.footer ? footerHeader.value : 0;
 });
+const defaultNavbarClass = "after:pointer-events-none after:absolute after:inset-x-0 after:top-0 after:z-0 after:h-(--linear-gradient-height) after:bg-linear-to-b after:from-(--linear-gradient-from) after:to-(--linear-gradient-to) after:content-[\"\"] after:select-none";
+const customStyleCssVar = computed(() => {
+  return `
+        --linear-gradient-from: ${props.linearGradientFrom};
+        --linear-gradient-to: ${props.linearGradientTo};
+        --linear-gradient-height: ${props.linearGradientHeight * 2}rpx;
+      `;
+});
 
 onMounted(() => {
   // #ifdef APP
@@ -62,9 +74,7 @@ onMounted(() => {
 });
 
 onLoad(() => {
-  if (props.needAuth && !user.token) {
-    router.login({ reLaunch: true });
-  }
+
 });
 
 onShow(() => {});
@@ -79,39 +89,59 @@ function getFooterHeight() {
     .exec();
 }
 
+function handleBack() {
+  router.back();
+}
+
 defineExpose({
   getFooterHeight,
 });
 </script>
 
 <template>
-  <wd-config-provider :theme="themeStore.theme" :theme-vars="themeStore.themeVars" :custom-class="cn(osName, themeStore.theme)">
-    <view :class="cn('relative box-border min-h-screen  bg-background text-foreground')">
-      <wd-navbar
-        v-if="props.title"
-        custom-class="relative " fixed
-        safe-area-inset-top
-        placeholder bordered
-        :title="props.title"
-      />
-      <view :style="{ paddingBottom: `${contentBottom}px` }" :class="cn('relative', props.customClass)">
-        <slot />
+  <auth-provider :need-auth="needAuth">
+    <theme-provider
+      :custom-style="customStyleCssVar"
+    >
+      <view :class="cn('relative box-border bg-background text-foreground')">
+        <view class=" pointer-events-none fixed inset-x-0 top-0 z-0 h-(--linear-gradient-height) bg-linear-to-b from-(--linear-gradient-from) to-(--linear-gradient-to) select-none" />
+        <wd-navbar
+          :custom-class="cn('relative overflow-hidden', linearGradientHeight > 0 && defaultNavbarClass, navbarClass) " fixed
+          safe-area-inset-top
+          placeholder :bordered="false"
+          :title="title"
+        >
+          <template #left>
+            <slot name="navbar-left">
+              <wd-icon
+                v-if="hasBack" name="arrow-left" custom-class="wd-navbar__arrow"
+                @click="handleBack"
+              />
+            </slot>
+          </template>
+          <template #right>
+            <slot name="navbar-right" />
+          </template>
+        </wd-navbar>
+        <view :style="{ paddingBottom: `${contentBottom}px` }" :class="cn('relative z-1', props.customClass)">
+          <slot />
+        </view>
+        <view id="container_footer" :class="cn('fixed inset-x-0 z-300 box-border ', props.isTabbar ? 'bottom-15' : 'bottom-safe bottom-0 ', props.footerClass)">
+          <slot name="footer" />
+        </view>
+        <QTabbar v-if="props.isTabbar" />
       </view>
-      <view id="container_footer" :class="cn('fixed inset-x-0 z-300 box-border ', props.isTabbar ? 'bottom-15' : 'bottom-safe bottom-0 ', props.footerClass)">
-        <slot name="footer" />
-      </view>
-      <QTabbar v-if="props.isTabbar" />
-    </view>
 
-    <wd-toast />
-    <wd-message-box />
-  </wd-config-provider>
+      <wd-toast selector="global-toast" custom-class=" w-[65vw]! bg-white! px-4! py-1.5! text-foreground!" />
+      <wd-message-box selector="global-message-box" />
+    </theme-provider>
+  </auth-provider>
 </template>
 
-<style lang="scss" scoped>
-:deep(.wd-navbar__content){
-  position: relative;
-  z-index: 1;
+  <style lang="scss" scoped>
+  :deep(.wd-navbar__content){
+    position: relative;
+    z-index: 1;
 
-}
-</style>
+  }
+  </style>

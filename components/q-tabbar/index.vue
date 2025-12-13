@@ -28,7 +28,7 @@ function handleTabbarChange({ value }: { value: string }) {
   <wd-tabbar
     :model-value="tabbarStore.activeTabbar" fixed
     safe-area-inset-bottom placeholder
-    custom-class="shadow-tabbar! h-15!"
+    custom-class="h-15!"
     bordered
     @change="handleTabbarChange"
   >

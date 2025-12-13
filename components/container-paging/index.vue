@@ -64,14 +64,6 @@ const slots = defineSlots<{
   "default"?: () => any;
 }>();
 
-const { osName } = useSystemOs();
-
-const themeStore = useThemeStore();
-
-const user = useUserStore();
-
-const instance = getCurrentInstance();
-
 const paging = ref<ZPagingRef>();
 
 const customStyleCssVar = computed(() => {
@@ -79,7 +71,6 @@ const customStyleCssVar = computed(() => {
       --linear-gradient-from: ${props.linearGradientFrom};
       --linear-gradient-to: ${props.linearGradientTo};
       --linear-gradient-height: ${props.linearGradientHeight * 2}rpx;
-      --custom-navbar-height:${getCustomNavHeight()}px;
     `;
 });
 
@@ -94,9 +85,7 @@ onMounted(() => {
 });
 
 onLoad(() => {
-  if (props.needAuth && !user.token) {
-    router.login({ reLaunch: true });
-  }
+
 });
 
 onShow(() => {});
@@ -119,56 +108,57 @@ defineExpose({
 </script>
 
 <template>
-  <wd-config-provider
-    :theme="themeStore.theme" :theme-vars="themeStore.themeVars" :custom-class="cn(osName, themeStore.theme, 'cover-wd')"
-    :custom-style="customStyleCssVar"
-  >
-    <z-paging
-      ref="paging" v-bind="zPagingProps" :paging-class="cn(zPagingProps.pagingClass, 'relative box-border bg-background text-foreground')"
-      :layout-only="props.layoutOnly"
-      :value="props.modelValue"
-      :safe-area-inset-bottom="!props.isTabbar"
-      @list-change="emit('update:modelValue', $event)"
-      @query="handleQuery" @scroll="handleScroll"
+  <auth-provider :need-auth="needAuth">
+    <theme-provider
+      :custom-style="customStyleCssVar"
     >
-      <template #top>
-        <view v-if="linearGradientHeight > 0" class=" pointer-events-none fixed inset-x-0 top-0 z-0 h-(--linear-gradient-height) bg-linear-to-b from-(--linear-gradient-from) to-(--linear-gradient-to) select-none" />
-        <view v-if="props.hideNavbar" class="status-bar-height" />
-        <view class="relative z-1">
-          <wd-navbar
-            v-if="!props.hideNavbar"
-            :custom-class="cn('relative overflow-hidden', linearGradientHeight > 0 && defaultNavbarClass, navbarClass) "
-            safe-area-inset-top
-            :bordered="navbarBordered"
-            :title="title"
-          >
-            <template #left>
-              <slot name="navbar-left">
-                <wd-icon
-                  v-if="hasBack" name="arrow-left" custom-class="wd-navbar__arrow"
-                  @click="handleBack"
-                />
-              </slot>
-            </template>
-            <template #right>
-              <slot name="navbar-right" />
-            </template>
-          </wd-navbar>
-          <slot name="top" />
+      <z-paging
+        ref="paging" v-bind="zPagingProps" :paging-class="cn(zPagingProps.pagingClass, 'relative box-border bg-background text-foreground')"
+        :layout-only="props.layoutOnly"
+        :value="props.modelValue"
+        :safe-area-inset-bottom="!props.isTabbar"
+        @list-change="emit('update:modelValue', $event)"
+        @query="handleQuery" @scroll="handleScroll"
+      >
+        <template #top>
+          <view v-if="linearGradientHeight > 0" class=" pointer-events-none fixed inset-x-0 top-0 z-0 h-(--linear-gradient-height) bg-linear-to-b from-(--linear-gradient-from) to-(--linear-gradient-to) select-none" />
+          <view v-if="props.hideNavbar" class="status-bar-height" />
+          <view class="relative z-1">
+            <wd-navbar
+              v-if="!props.hideNavbar"
+              :custom-class="cn('relative overflow-hidden', linearGradientHeight > 0 && defaultNavbarClass, navbarClass) "
+              safe-area-inset-top
+              :bordered="navbarBordered"
+              :title="title"
+            >
+              <template #left>
+                <slot name="navbar-left">
+                  <wd-icon
+                    v-if="hasBack" name="arrow-left" custom-class="wd-navbar__arrow"
+                    @click="handleBack"
+                  />
+                </slot>
+              </template>
+              <template #right>
+                <slot name="navbar-right" />
+              </template>
+            </wd-navbar>
+            <slot name="top" />
+          </view>
+        </template>
+        <view :class="cn(props.customClass, 'relative z-1')">
+          <slot />
         </view>
-      </template>
-      <view :class="cn(props.customClass, 'relative z-1')">
-        <slot />
-      </view>
-      <template #bottom>
-        <QTabbar v-if="props.isTabbar" />
-        <slot name="bottom" />
-      </template>
-    </z-paging>
+        <template #bottom>
+          <QTabbar v-if="props.isTabbar" />
+          <slot name="bottom" />
+        </template>
+      </z-paging>
 
-    <wd-toast selector="global-toast" custom-class=" w-[65vw]! bg-white! px-4! py-1.5! text-foreground!" />
-    <wd-message-box selector="global-message-box" custom-class="global-message-box" />
-  </wd-config-provider>
+      <wd-toast selector="global-toast" custom-class=" w-[65vw]! bg-white! px-4! py-1.5! text-foreground!" />
+      <wd-message-box selector="global-message-box" custom-class="global-message-box" />
+    </theme-provider>
+  </auth-provider>
 </template>
 
 <style lang="scss" scoped>
