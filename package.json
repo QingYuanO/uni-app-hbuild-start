@@ -56,6 +56,6 @@
     "vite": "^5.4.21",
     "vue-eslint-parser": "^10.2.0",
     "vue-tsc": "^2.2.10",
-    "weapp-tailwindcss": "^4.8.13"
+    "weapp-tailwindcss": "^4.8.14"
   }
 }
