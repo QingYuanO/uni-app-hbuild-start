@@ -72,7 +72,3 @@ function stepMessagePush() {
   );
 }
 </script>
-
-<style lang="scss">
-@import "./styles/index.css";
-</style>

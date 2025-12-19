@@ -1,11 +1,13 @@
-@import './tailwind.css';
-@import './tw-animate.css';
-@import './cover-wd.css';
 
 
-page {
-  @apply bg-white text-[#0a0a0a];
+.cover-wd {
+  --wot-color-theme:var(--primary);
+  --wot-dark-color:var(--foreground);
+  --wot-dark-background:var(--background);
+  --wot-color-border-light:var(--border);
 }
+
+
 
 .uni-tabbar__bd{
   /* #ifdef H5 */
@@ -36,9 +38,13 @@ page {
 	}
 }
 
+/* #ifdef H5 */
 :deep(.hide-scroll::-webkit-scrollbar) {
 	display: none;
 }
+
+/* #endif */
+
 
 .hide-scroll {
 	scrollbar-width: none;

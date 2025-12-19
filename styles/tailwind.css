@@ -1,11 +1,14 @@
-@import 'weapp-tailwindcss/css';
+@import "tailwindcss";
+@import "./tw-animate.css";
 @source not "unpackage";
-
 @plugin "weapp-tailwindcss/css-macro";
-@plugin "tailwindcss-motion";
 @plugin "@iconify/tailwind4";
 @config "../tailwind.config.js";
 
+
+page {
+  @apply bg-white text-[#0a0a0a];
+}
 
 .light {
   --background: oklch(1 0 0);

@@ -24,7 +24,7 @@ export default defineConfig({
       tailwindcss: {
         v4: {
           base: __dirname,
-          cssEntries: [path.resolve(__dirname, "styles/index.css")],
+          cssEntries: [path.resolve(__dirname, "./styles/tailwind.css")],
         },
       },
     }),
