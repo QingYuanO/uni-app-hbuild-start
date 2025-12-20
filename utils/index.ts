@@ -83,6 +83,7 @@ export * from "./animator";
 export * from "./app";
 export * from "./constant";
 export * from "./lang";
+export * as AppPermission from "./permission";
 export * from "./reg";
 export * from "./storage";
 export * from "./ui";
