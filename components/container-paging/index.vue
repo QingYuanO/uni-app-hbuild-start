@@ -1,6 +1,7 @@
 <!-- 包裹每个页面的组件，集成一些全局功能 -->
 
 <script setup lang="ts">
+import type FeedbackProvider from "@/components/provider/feedback-provider/index.vue";
 import type { ZPagingProps } from "@/uni_modules/z-paging/types/comps/z-paging";
 import { router } from "@/router";
 
@@ -32,6 +33,10 @@ const props = withDefaults(
     linearGradientTo?: string;
     navbarClass?: string;
     navbarBordered?: boolean;
+    /**
+     * 在不显示 tabbar 的时候，是否显示 statusBar 占位高度元素
+     */
+    statusBarPlaceholder?: boolean;
   }>(),
   {
     needAuth: true,
@@ -44,6 +49,7 @@ const props = withDefaults(
     layoutOnly: true,
     hideNavbar: false,
     navbarBordered: true,
+    statusBarPlaceholder: true,
     zPagingProps: () => ({
     }),
   },
@@ -65,7 +71,8 @@ const slots = defineSlots<{
 }>();
 
 const paging = ref<ZPagingRef>();
-
+const toast = useToast("global-toast");
+const messageBox = useMessage("global-message-box");
 const customStyleCssVar = computed(() => {
   return `
       --linear-gradient-from: ${props.linearGradientFrom};
@@ -104,6 +111,8 @@ function handleBack() {
 
 defineExpose({
   getPagingRef: () => paging.value,
+  toast: () => toast,
+  messageBox: () => messageBox,
 });
 </script>
 
@@ -122,7 +131,7 @@ defineExpose({
       >
         <template #top>
           <view v-if="linearGradientHeight > 0" class=" pointer-events-none fixed inset-x-0 top-0 z-0 h-(--linear-gradient-height) bg-linear-to-b from-(--linear-gradient-from) to-(--linear-gradient-to) select-none" />
-          <view v-if="props.hideNavbar" class="status-bar-height" />
+          <view v-if="props.hideNavbar && props.statusBarPlaceholder" class="status-bar-height" />
           <view class="relative z-1">
             <wd-navbar
               v-if="!props.hideNavbar"
@@ -154,7 +163,6 @@ defineExpose({
           <slot name="bottom" />
         </template>
       </z-paging>
-
       <wd-toast selector="global-toast" custom-class=" w-[65vw]! bg-white! px-4! py-1.5! text-foreground!" />
       <wd-message-box selector="global-message-box" custom-class="global-message-box" />
     </theme-provider>
