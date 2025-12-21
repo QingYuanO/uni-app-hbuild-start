@@ -25,12 +25,7 @@ export default defineConfig({
       customAttributes: {
         "*": [/[A-Za-z-]*[Cc]lass/, "custom-class"],
       },
-      tailwindcss: {
-        v4: {
-          base: __dirname,
-          cssEntries: [path.resolve(__dirname, "./styles/tailwind.css")],
-        },
-      },
+      cssEntries: [path.resolve(__dirname, "./tailwind.css")],
     }),
     AutoImport({
       imports: [
@@ -64,7 +59,7 @@ export default defineConfig({
     __VUE_I18N_LEGACY_API__: false,
   },
   build: {
-    minify: "esbuild",
+    minify: false,
     terserOptions: undefined,
     rollupOptions: {},
   },
