@@ -21,6 +21,8 @@ export function useGps(options: UseGpsOptions = {}) {
         isRequiring.value = false;
       });
       hasPermission = false;
+      hasLocationPermission.value = hasPermission;
+      return hasPermission;
     }
 
     if (isAndroid) {
