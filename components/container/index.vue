@@ -103,6 +103,7 @@ defineExpose({
     <theme-provider
       :custom-style="customStyleCssVar"
     >
+    <feedback-provider>
       <view :class="cn('relative box-border bg-background text-foreground')">
         <view class=" pointer-events-none fixed inset-x-0 top-0 z-0 h-(--linear-gradient-height) bg-linear-to-b from-(--linear-gradient-from) to-(--linear-gradient-to) select-none" />
         <wd-navbar
@@ -131,9 +132,9 @@ defineExpose({
         </view>
         <QTabbar v-if="props.isTabbar" />
       </view>
-
-      <wd-toast selector="global-toast" custom-class=" w-[65vw]! bg-white! px-4! py-1.5! text-foreground!" />
-      <wd-message-box selector="global-message-box" />
+      <slot name="feedback" />
+    </feedback-provider>
+      
     </theme-provider>
   </auth-provider>
 </template>

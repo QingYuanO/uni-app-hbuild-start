@@ -4,7 +4,7 @@
 import type FeedbackProvider from "@/components/provider/feedback-provider/index.vue";
 import type { ZPagingProps } from "@/uni_modules/z-paging/types/comps/z-paging";
 import { router } from "@/router";
-
+import empty from "@/static/images/empty.png";
 defineOptions({
   name: "ContainerZPaging",
   options: {
@@ -68,11 +68,10 @@ const slots = defineSlots<{
   "navbar-left"?: () => any;
   "navbar-right"?: () => any;
   "default"?: () => any;
+  "feedback"?: () => any;
 }>();
 
-const paging = ref<ZPagingRef>();
-const toast = useToast("global-toast");
-const messageBox = useMessage("global-message-box");
+const paging = ref<ZPagingRef>()
 const customStyleCssVar = computed(() => {
   return `
       --linear-gradient-from: ${props.linearGradientFrom};
@@ -111,8 +110,7 @@ function handleBack() {
 
 defineExpose({
   getPagingRef: () => paging.value,
-  toast: () => toast,
-  messageBox: () => messageBox,
+
 });
 </script>
 
@@ -121,6 +119,7 @@ defineExpose({
     <theme-provider
       :custom-style="customStyleCssVar"
     >
+    <feedback-provider>
       <z-paging
         ref="paging" v-bind="zPagingProps" :paging-class="cn(zPagingProps.pagingClass, 'relative box-border bg-background text-foreground')"
         :layout-only="props.layoutOnly"
@@ -162,9 +161,28 @@ defineExpose({
           <QTabbar v-if="props.isTabbar" />
           <slot name="bottom" />
         </template>
+
+
+      <template #empty>
+        <view class=" flex-col-center">
+          <image :src="empty" class="size-36" />
+          <view class="mt-5 text-sm text-[#a4a4a4]">
+            暂无数据
+          </view>
+        </view>
+      </template>
+      <template #loading>
+        <view class="flex h-full flex-col items-center justify-center">
+          <wd-loading :size="20" type="spinner" />
+          <view class="mt-5 text-sm text-[#a4a4a4]">
+            加载中...
+          </view>
+        </view>
+      </template>
+
       </z-paging>
-      <wd-toast selector="global-toast" custom-class=" w-[65vw]! bg-white! px-4! py-1.5! text-foreground!" />
-      <wd-message-box selector="global-message-box" custom-class="global-message-box" />
+      <slot name="feedback" />
+    </feedback-provider>
     </theme-provider>
   </auth-provider>
 </template>

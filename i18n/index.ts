@@ -1,8 +1,8 @@
 import { createI18n } from "vue-i18n";
-import { Locale } from "wot-design-uni";
-import WotEnUS from "wot-design-uni/locale/lang/en-US";
 import en from "@/i18n/lang/en";
 import zhCn from "@/i18n/lang/zh-cn";
+import { Locale } from "wot-design-uni";
+import WotEnUS from "wot-design-uni/locale/lang/en-US";
 
 function interpolateTemplate(template: string, values: any[]): string {
   return template.replace(/\{(\d+)\}/g, (_, index) => values[index] ?? "");

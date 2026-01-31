@@ -43,6 +43,13 @@ instance.interceptors.request.use(
       ...(config.meta ?? {}),
     };
 
+    config.headers = {
+      ...config.headers,
+      lang: i18n.global.locale.value,
+      Authorization: storage.get("token"),
+    };
+
+
     const hasLoading = config.meta?.showLoading;
     const loadingText = config.meta?.loadingText;
 
@@ -50,6 +57,7 @@ instance.interceptors.request.use(
       const timer = setTimeout(() => {
         uni.showLoading({
           title: loadingText,
+          mask: true,
         });
       }, config.meta.delay);
       config.extraConfig.timer = timer;
@@ -58,6 +66,8 @@ instance.interceptors.request.use(
   },
   (error) => {
     // 对请求错误做些什么
+    setTimeout
+    uni.hideLoading();
     return Promise.reject(error);
   },
 );
@@ -84,6 +94,11 @@ instance.interceptors.response.use(
   (error) => {
     // 超出 2xx 范围的状态码都会触发该函数
     // 对响应错误做点什么
+    setTimeout(() => {
+      uni.hideLoading();
+    }, 2000);
+    const globalToast = useGlobalToast();
+    globalToast.error(error.message)
     return Promise.reject(error);
   },
 );

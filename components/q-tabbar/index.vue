@@ -12,15 +12,24 @@ defineOptions({
 
 const tabbarStore = useTabbarStore();
 
-function handleTabbarChange({ value }: { value: string }) {
-  router.push({
-    path: `/${value}`,
-    mode: "switchTab",
-    success: () => {
-      tabbarStore.setActiveTabbar(value);
-    },
+onShow(() => {
+  tabbarStore.setActiveTabbar(router.currentPage().route);
+});
 
-  });
+function handleTabbarChange({ value }: { value: string }) {
+  try {
+    router.push({
+      path: `/${value}`,
+      mode: "switchTab",
+      success: () => {
+        tabbarStore.setActiveTabbar(value);
+      },
+
+    });
+  }
+  catch (error) {
+    console.log(error);
+  }
 }
 </script>
 

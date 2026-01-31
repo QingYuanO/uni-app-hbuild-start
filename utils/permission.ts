@@ -1,7 +1,10 @@
 /**
- * 本模块封装了Android、iOS的应用权限判断、打开应用权限设置界面、以及位置系统服务是否开启
- * 注意：调用系统 api 就会触发onShow
+ * 本模块封装了Android、iOS的应用权限判断、打开应用权限设置界面、以及位置系统服务是否开启（调用系统 api 就会触发OnShow）
  */
+
+import i18n from "@/i18n";
+
+const { t } = i18n.global;
 
 declare const plus: any;
 
@@ -158,6 +161,79 @@ function judgeIosPermissionMemo(): boolean {
   return result;
 }
 
+export const androidPermissionID = {
+  /**
+   * 位置权限
+   */
+  ACCESS_FINE_LOCATION: "android.permission.ACCESS_FINE_LOCATION",
+  /**
+   * 模糊位置权限(蓝牙\ble依赖)
+   */
+  ACCESS_COARSE_LOCATION: "android.permission.ACCESS_COARSE_LOCATION",
+  /**
+   * 摄像头权限
+   */
+  CAMERA: "android.permission.CAMERA",
+  /**
+   * 外部存储(含相册)读取权限
+   */
+  READ_EXTERNAL_STORAGE: "android.permission.READ_EXTERNAL_STORAGE",
+  /**
+   * 外部存储(含相册)写入权限
+   */
+  WRITE_EXTERNAL_STORAGE: "android.permission.WRITE_EXTERNAL_STORAGE",
+  /**
+   * 麦克风权限
+   */
+  RECORD_AUDIO: "android.permission.RECORD_AUDIO",
+  /**
+   * 通讯录读取权限
+   */
+  READ_CONTACTS: "android.permission.READ_CONTACTS",
+  /**
+   * 通讯录写入权限
+   */
+  WRITE_CONTACTS: "android.permission.WRITE_CONTACTS",
+  /**
+   * 日历读取权限
+   */
+  READ_CALENDAR: "android.permission.READ_CALENDAR",
+  /**
+   * 日历写入权限
+   */
+  WRITE_CALENDAR: "android.permission.WRITE_CALENDAR",
+  /**
+   * 短信读取权限
+   */
+  READ_SMS: "android.permission.READ_SMS",
+  /**
+   * 短信发送权限
+   */
+  SEND_SMS: "android.permission.SEND_SMS",
+  /**
+   * 接收新短信权限
+   */
+  RECEIVE_SMS: "android.permission.RECEIVE_SMS",
+  /**
+   * 获取手机识别码等信息的权限
+   */
+  READ_PHONE_STATE: "android.permission.READ_PHONE_STATE",
+  /**
+   * 拨打电话权限
+   */
+  CALL_PHONE: "android.permission.CALL_PHONE",
+  /**
+   * 获取通话记录权限
+   */
+  READ_CALL_LOG: "android.permission.READ_CALL_LOG",
+
+  /**
+   * 推送权限
+   */
+  POST_NOTIFICATIONS: "android.permission.POST_NOTIFICATIONS",
+
+};
+
 // Android权限查询
 function requestAndroidPermission(permissionID: string): Promise<number | { code: number; message: string }> {
   return new Promise((resolve) => {
@@ -233,30 +309,31 @@ function judgeIosPermission(permissionID: IosPermissionID): boolean {
 
 // 跳转到**应用**的权限页面
 function gotoAppPermissionSetting(): void {
-  if (isIos) {
-    const UIApplication = plus.ios.import("UIApplication");
-    const application2 = UIApplication.sharedApplication();
-    const NSURL2 = plus.ios.import("NSURL");
-    // var setting2 = NSURL2.URLWithString("prefs:root=LOCATION_SERVICES");
-    const setting2 = NSURL2.URLWithString("app-settings:");
-    application2.openURL(setting2);
+  // if (isIos) {
+  //   const UIApplication = plus.ios.import("UIApplication");
+  //   const application2 = UIApplication.sharedApplication();
+  //   const NSURL2 = plus.ios.import("NSURL");
+  //   // var setting2 = NSURL2.URLWithString("prefs:root=LOCATION_SERVICES");
+  //   const setting2 = NSURL2.URLWithString("app-settings:");
+  //   application2.openURL(setting2);
 
-    plus.ios.deleteObject(setting2);
-    plus.ios.deleteObject(NSURL2);
-    plus.ios.deleteObject(application2);
-  }
-  else {
-    // console.log(plus.device.vendor);
-    const Intent = plus.android.importClass("android.content.Intent");
-    const Settings = plus.android.importClass("android.provider.Settings");
-    const Uri = plus.android.importClass("android.net.Uri");
-    const mainActivity = plus.android.runtimeMainActivity();
-    const intent = new Intent();
-    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-    const uri = Uri.fromParts("package", mainActivity.getPackageName(), null);
-    intent.setData(uri);
-    mainActivity.startActivity(intent);
-  }
+  //   plus.ios.deleteObject(setting2);
+  //   plus.ios.deleteObject(NSURL2);
+  //   plus.ios.deleteObject(application2);
+  // }
+  // else {
+  //   // console.log(plus.device.vendor);
+  //   const Intent = plus.android.importClass("android.content.Intent");
+  //   const Settings = plus.android.importClass("android.provider.Settings");
+  //   const Uri = plus.android.importClass("android.net.Uri");
+  //   const mainActivity = plus.android.runtimeMainActivity();
+  //   const intent = new Intent();
+  //   intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+  //   const uri = Uri.fromParts("package", mainActivity.getPackageName(), null);
+  //   intent.setData(uri);
+  //   mainActivity.startActivity(intent);
+  // }
+  uni.openAppAuthorizeSetting();
 }
 
 // 检查系统的设备服务是否开启
@@ -279,9 +356,72 @@ function checkSystemEnableLocation(): boolean {
   }
 }
 
+type PermissionID
+  = | "location"
+    | "camera"
+    | "photoLibrary"
+    | "record"
+    | "push"
+    | "contact"
+    | "calendar"
+    | "memo";
+async function requestSomePermission(permissionID: PermissionID, options?: { msg?: string; success?: () => void; fail?: () => void }) {
+  const messageBox = useGlobalMessage();
+  let isGranted = false;
+  try {
+    switch (permissionID) {
+      case "location":
+        isGranted = isAndroid ? (await requestAndroidPermission(androidPermissionID.ACCESS_FINE_LOCATION)) === 1 : judgeIosPermissionLocation();
+        break;
+      case "camera":
+        isGranted = isAndroid ? (await requestAndroidPermission(androidPermissionID.CAMERA)) === 1 : judgeIosPermissionCamera();
+        break;
+      case "photoLibrary":
+        isGranted = isAndroid ? (await requestAndroidPermission(androidPermissionID.READ_EXTERNAL_STORAGE)) === 1 : judgeIosPermissionPhotoLibrary();
+        break;
+      case "record":
+        isGranted = isAndroid ? (await requestAndroidPermission(androidPermissionID.RECORD_AUDIO)) === 1 : judgeIosPermissionRecord();
+        break;
+      case "push":
+        isGranted = isAndroid ? (await requestAndroidPermission(androidPermissionID.POST_NOTIFICATIONS)) === 1 : judgeIosPermissionPush();
+        break;
+      case "contact":
+        isGranted = isAndroid ? (await requestAndroidPermission(androidPermissionID.READ_CONTACTS)) === 1 : judgeIosPermissionContact();
+        break;
+      case "calendar":
+        isGranted = isAndroid ? (await requestAndroidPermission(androidPermissionID.READ_CALENDAR)) === 1 : judgeIosPermissionCalendar();
+        break;
+      case "memo":
+        isGranted = isAndroid ? (await requestAndroidPermission(androidPermissionID.READ_CONTACTS)) === 1 : judgeIosPermissionMemo();
+        break;
+    }
+  }
+  catch (error) {
+    isGranted = false;
+  }
+
+  if (!isGranted) {
+    messageBox.confirm({
+      msg: options?.msg ?? "",
+      success(res) {
+        if (res.action === "confirm") {
+          gotoAppPermissionSetting();
+        }
+        options?.success?.();
+      },
+      fail(res) {
+        options?.fail?.();
+      },
+    });
+  }
+
+  return isGranted;
+}
+
 export {
   checkSystemEnableLocation,
   gotoAppPermissionSetting,
   judgeIosPermission,
   requestAndroidPermission,
+  requestSomePermission,
 };

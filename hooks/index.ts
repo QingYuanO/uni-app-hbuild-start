@@ -1,7 +1,6 @@
 export * from "./useAccessFun";
 export * from "./useAndroidMoveTaskToBack";
 export * from "./useEvokeShow";
-export * from "./useFeedback";
 export * from "./useGps";
 export * from "./useI18nSync";
 export * from "./useInfiniteList";
@@ -10,3 +9,5 @@ export * from "./useNodeBoundingClientRect";
 export * from "./useParent";
 export * from "./useTheme";
 export * from "./useZPaging";
+export * from "./useGlobalMessage";
+export * from "./useGlobalToast";

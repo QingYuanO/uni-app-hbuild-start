@@ -9,23 +9,21 @@ export const pageConfig = {
   login: "pages/login/index",
 };
 
-type PushOptions
-  = | string
-    | {
-      path: string;
-      mode?: "navigateTo" | "redirectTo" | "reLaunch" | "switchTab" | "preloadPage";
-      events?: {
-        [key: string]: (data: any) => void;
-      };
-      query?: {
-        [key: string]: any;
-      };
-      params?: {
-        [key: string]: any;
-      };
-      isGuard?: boolean;
-      [key: string]: any;
-    };
+interface PushOptions {
+  path: string;
+  mode?: "navigateTo" | "redirectTo" | "reLaunch" | "switchTab" | "preloadPage";
+  events?: {
+    [key: string]: (data: any) => void;
+  };
+  query?: {
+    [key: string]: any;
+  };
+  params?: {
+    [key: string]: any;
+  };
+  isGuard?: boolean;
+  [key: string]: any;
+}
 
 type Tabs = {
   text?: string;
@@ -67,12 +65,13 @@ const router = {
   get isCustomTabbar(): boolean {
     return !!pagesJson.tabBar?.custom;
   },
+
   // 全局样式配置
   globalStyle: pagesJson.globalStyle,
-  pageConfig,
+
   // 路由列表
   routes,
-
+  pageConfig,
   // 跳转参数（地址栏）
   get query() {
     const info = this.info();
@@ -94,7 +93,7 @@ const router = {
 
   // 当前路由路径
   get path() {
-    return router.info()?.path;
+    return router.info()?.path ?? "";
   },
 
   // 当前路由信息
@@ -139,7 +138,7 @@ const router = {
   },
 
   // 路由跳转
-  push(options: PushOptions) {
+  push(options: PushOptions | string) {
     if (typeof options == "string") {
       options = {
         path: options,
@@ -216,7 +215,7 @@ const router = {
     };
 
     if (fn.beforeEach && isGuard) {
-      fn.beforeEach({ path: options.path, query }, next, (options: PushOptions) => {
+      fn.beforeEach({ path: options.path, query }, next, (options: PushOptions | string) => {
         this.push(options);
       });
     }
@@ -228,7 +227,7 @@ const router = {
   // 后退
   back(options?: UniApp.NavigateBackOptions) {
     if (this.isFirstPage()) {
-      this.home();
+      this.home("reLaunch");
     }
     else {
       uni.navigateBack(options || {});
@@ -257,8 +256,8 @@ const router = {
   },
 
   // 回到首页
-  home() {
-    this.push(`/${pageConfig.home}`);
+  home(mode: PushOptions["mode"] = "navigateTo") {
+    this.push({ mode, path: `/${pageConfig.home}` });
   },
 
   // 跳转 Tab 页

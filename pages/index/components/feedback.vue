@@ -1,14 +1,15 @@
 <script setup lang="ts">
-const feedback = useFeedback();
+const toast = useGlobalToast()
+const messageBox = useGlobalMessage()
 
 function handleToast() {
-  console.log(feedback.toast);
 
-  feedback.toast.success("成功");
+
+  toast.success("成功");
 }
 
 function handleMessageBox() {
-  feedback.messageBox.alert("提示");
+  messageBox.alert("提示");
 }
 </script>
 
