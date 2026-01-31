@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { focusManager, onlineManager } from "@tanstack/vue-query";
 
-onLoad(() => {
+onLaunch(() => {
   uni.onNetworkStatusChange(onlineChange);
 });
 onUnload(() => {
