@@ -44,7 +44,7 @@ function handleLogin() {
     <view class="flex flex-col gap-y-5 px-5 pt-5">
       <wd-form
         ref="form" :model="formData"
-        error-type="none" custom-class="flex flex-col gap-y-5"
+        error-type="toast" custom-class="flex flex-col gap-y-5"
       >
         <view class="flex flex-col gap-y-1">
           <wd-button type="primary" custom-class=" w-20! rounded-lg! bg-amber-300!">
@@ -56,9 +56,6 @@ function handleLogin() {
             required type="text" placeholder="请输入手机号"
             :rules="[{ required: true, message: '请填写手机号' }]"
           />
-          <view v-if="errorMap.phone" class="text-sm text-red-500">
-            {{ errorMap.phone }}
-          </view>
         </view>
 
         <view class=" flex flex-col gap-y-3">
@@ -69,9 +66,6 @@ function handleLogin() {
               required type="safe-password" placeholder="请输入密码"
               show-password :rules="[{ required: true, message: '请填写密码' }]"
             />
-            <view v-if="errorMap.password" class="text-sm text-red-500">
-              {{ errorMap.password }}
-            </view>
           </view>
           <view class="flex items-center justify-between">
             <wd-checkbox :model-value="true" shape="square">

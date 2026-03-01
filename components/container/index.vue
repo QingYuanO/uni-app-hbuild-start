@@ -103,38 +103,37 @@ defineExpose({
     <theme-provider
       :custom-style="customStyleCssVar"
     >
-    <feedback-provider>
-      <view :class="cn('relative box-border bg-background text-foreground')">
-        <view class=" pointer-events-none fixed inset-x-0 top-0 z-0 h-(--linear-gradient-height) bg-linear-to-b from-(--linear-gradient-from) to-(--linear-gradient-to) select-none" />
-        <wd-navbar
-          :custom-class="cn('relative overflow-hidden', linearGradientHeight > 0 && defaultNavbarClass, navbarClass) " fixed
-          safe-area-inset-top
-          placeholder :bordered="false"
-          :title="title"
-        >
-          <template #left>
-            <slot name="navbar-left">
-              <wd-icon
-                v-if="hasBack" name="arrow-left" custom-class="wd-navbar__arrow"
-                @click="handleBack"
-              />
-            </slot>
-          </template>
-          <template #right>
-            <slot name="navbar-right" />
-          </template>
-        </wd-navbar>
-        <view :style="{ paddingBottom: `${contentBottom}px` }" :class="cn('relative z-1', props.customClass)">
-          <slot />
+      <feedback-provider>
+        <view :class="cn('relative box-border bg-background text-foreground')">
+          <view class=" pointer-events-none fixed inset-x-0 top-0 z-0 h-(--linear-gradient-height) bg-linear-to-b from-(--linear-gradient-from) to-(--linear-gradient-to) select-none" />
+          <wd-navbar
+            :custom-class="cn('relative overflow-hidden', linearGradientHeight > 0 && defaultNavbarClass, navbarClass) " fixed
+            safe-area-inset-top
+            placeholder :bordered="false"
+            :title="title"
+          >
+            <template #left>
+              <slot name="navbar-left">
+                <wd-icon
+                  v-if="hasBack" name="arrow-left" custom-class="wd-navbar__arrow"
+                  @click="handleBack"
+                />
+              </slot>
+            </template>
+            <template #right>
+              <slot name="navbar-right" />
+            </template>
+          </wd-navbar>
+          <view :style="{ paddingBottom: `${contentBottom}px` }" :class="cn('relative z-1', props.customClass)">
+            <slot />
+          </view>
+          <view id="container_footer" :class="cn('fixed inset-x-0 z-300 box-border ', props.isTabbar ? 'bottom-15' : 'bottom-safe bottom-0 ', props.footerClass)">
+            <slot name="footer" />
+          </view>
+          <QTabbar v-if="props.isTabbar" />
         </view>
-        <view id="container_footer" :class="cn('fixed inset-x-0 z-300 box-border ', props.isTabbar ? 'bottom-15' : 'bottom-safe bottom-0 ', props.footerClass)">
-          <slot name="footer" />
-        </view>
-        <QTabbar v-if="props.isTabbar" />
-      </view>
-      <slot name="feedback" />
-    </feedback-provider>
-      
+        <slot name="feedback" />
+      </feedback-provider>
     </theme-provider>
   </auth-provider>
 </template>

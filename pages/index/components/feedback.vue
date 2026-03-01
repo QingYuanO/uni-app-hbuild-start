@@ -1,10 +1,8 @@
 <script setup lang="ts">
-const toast = useGlobalToast()
-const messageBox = useGlobalMessage()
+const toast = useGlobalToast();
+const messageBox = useGlobalMessage();
 
 function handleToast() {
-
-
   toast.success("成功");
 }
 

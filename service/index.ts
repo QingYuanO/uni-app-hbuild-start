@@ -49,7 +49,6 @@ instance.interceptors.request.use(
       Authorization: storage.get("token"),
     };
 
-
     const hasLoading = config.meta?.showLoading;
     const loadingText = config.meta?.loadingText;
 
@@ -66,7 +65,7 @@ instance.interceptors.request.use(
   },
   (error) => {
     // 对请求错误做些什么
-    setTimeout
+    setTimeout;
     uni.hideLoading();
     return Promise.reject(error);
   },
@@ -98,7 +97,7 @@ instance.interceptors.response.use(
       uni.hideLoading();
     }, 2000);
     const globalToast = useGlobalToast();
-    globalToast.error(error.message)
+    globalToast.error(error.message);
     return Promise.reject(error);
   },
 );

@@ -5,6 +5,7 @@ import type FeedbackProvider from "@/components/provider/feedback-provider/index
 import type { ZPagingProps } from "@/uni_modules/z-paging/types/comps/z-paging";
 import { router } from "@/router";
 import empty from "@/static/images/empty.png";
+
 defineOptions({
   name: "ContainerZPaging",
   options: {
@@ -71,7 +72,7 @@ const slots = defineSlots<{
   "feedback"?: () => any;
 }>();
 
-const paging = ref<ZPagingRef>()
+const paging = ref<ZPagingRef>();
 const customStyleCssVar = computed(() => {
   return `
       --linear-gradient-from: ${props.linearGradientFrom};
@@ -119,70 +120,68 @@ defineExpose({
     <theme-provider
       :custom-style="customStyleCssVar"
     >
-    <feedback-provider>
-      <z-paging
-        ref="paging" v-bind="zPagingProps" :paging-class="cn(zPagingProps.pagingClass, 'relative box-border bg-background text-foreground')"
-        :layout-only="props.layoutOnly"
-        :value="props.modelValue"
-        :safe-area-inset-bottom="!props.isTabbar"
-        @list-change="emit('update:modelValue', $event)"
-        @query="handleQuery" @scroll="handleScroll"
-      >
-        <template #top>
-          <view v-if="linearGradientHeight > 0" class=" pointer-events-none fixed inset-x-0 top-0 z-0 h-(--linear-gradient-height) bg-linear-to-b from-(--linear-gradient-from) to-(--linear-gradient-to) select-none" />
-          <view v-if="props.hideNavbar && props.statusBarPlaceholder" class="status-bar-height" />
-          <view class="relative z-1">
-            <wd-navbar
-              v-if="!props.hideNavbar"
-              :custom-class="cn('relative overflow-hidden', linearGradientHeight > 0 && defaultNavbarClass, navbarClass) "
-              safe-area-inset-top
-              :bordered="navbarBordered"
-              :title="title"
-            >
-              <template #left>
-                <slot name="navbar-left">
-                  <wd-icon
-                    v-if="hasBack" name="arrow-left" custom-class="wd-navbar__arrow"
-                    @click="handleBack"
-                  />
-                </slot>
-              </template>
-              <template #right>
-                <slot name="navbar-right" />
-              </template>
-            </wd-navbar>
-            <slot name="top" />
+      <feedback-provider>
+        <z-paging
+          ref="paging" v-bind="zPagingProps" :paging-class="cn(zPagingProps.pagingClass, 'relative box-border bg-background text-foreground')"
+          :layout-only="props.layoutOnly"
+          :value="props.modelValue"
+          :safe-area-inset-bottom="!props.isTabbar"
+          @list-change="emit('update:modelValue', $event)"
+          @query="handleQuery" @scroll="handleScroll"
+        >
+          <template #top>
+            <view v-if="linearGradientHeight > 0" class=" pointer-events-none fixed inset-x-0 top-0 z-0 h-(--linear-gradient-height) bg-linear-to-b from-(--linear-gradient-from) to-(--linear-gradient-to) select-none" />
+            <view v-if="props.hideNavbar && props.statusBarPlaceholder" class="status-bar-height" />
+            <view class="relative z-1">
+              <wd-navbar
+                v-if="!props.hideNavbar"
+                :custom-class="cn('relative overflow-hidden', linearGradientHeight > 0 && defaultNavbarClass, navbarClass) "
+                safe-area-inset-top
+                :bordered="navbarBordered"
+                :title="title"
+              >
+                <template #left>
+                  <slot name="navbar-left">
+                    <wd-icon
+                      v-if="hasBack" name="arrow-left" custom-class="wd-navbar__arrow"
+                      @click="handleBack"
+                    />
+                  </slot>
+                </template>
+                <template #right>
+                  <slot name="navbar-right" />
+                </template>
+              </wd-navbar>
+              <slot name="top" />
+            </view>
+          </template>
+          <view :class="cn(props.customClass, 'relative z-1')">
+            <slot />
           </view>
-        </template>
-        <view :class="cn(props.customClass, 'relative z-1')">
-          <slot />
-        </view>
-        <template #bottom>
-          <QTabbar v-if="props.isTabbar" />
-          <slot name="bottom" />
-        </template>
+          <template #bottom>
+            <QTabbar v-if="props.isTabbar" />
+            <slot name="bottom" />
+          </template>
 
-
-      <template #empty>
-        <view class=" flex-col-center">
-          <image :src="empty" class="size-36" />
-          <view class="mt-5 text-sm text-[#a4a4a4]">
-            暂无数据
-          </view>
-        </view>
-      </template>
-      <template #loading>
-        <view class="flex h-full flex-col items-center justify-center">
-          <wd-loading :size="20" type="spinner" />
-          <view class="mt-5 text-sm text-[#a4a4a4]">
-            加载中...
-          </view>
-        </view>
-      </template>
-
-      </z-paging>
-      <slot name="feedback" />
-    </feedback-provider>
+          <template #empty>
+            <view class=" flex-col-center">
+              <image :src="empty" class="size-36" />
+              <view class="mt-5 text-sm text-[#a4a4a4]">
+                暂无数据
+              </view>
+            </view>
+          </template>
+          <template #loading>
+            <view class="flex h-full flex-col items-center justify-center">
+              <wd-loading :size="20" type="spinner" />
+              <view class="mt-5 text-sm text-[#a4a4a4]">
+                加载中...
+              </view>
+            </view>
+          </template>
+        </z-paging>
+        <slot name="feedback" />
+      </feedback-provider>
     </theme-provider>
   </auth-provider>
 </template>

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { router } from "@/router";
 
-
 const { toastOptions, currentPage } = storeToRefs(useGlobalToast());
 
 const { close: closeGlobalToast } = useGlobalToast();

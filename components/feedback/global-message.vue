@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { router } from "@/router";
-
 import { deepClone, isFunction } from "wot-design-uni/components/common/util";
+
+import { router } from "@/router";
 
 const { messageOptions, currentPage } = storeToRefs(useGlobalMessage());
 

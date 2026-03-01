@@ -41,7 +41,7 @@ export default uni(
     settings: {
       tailwindcss: {
         callees: ["classnames", "clsx", "cn"],
-        config: `${import.meta.dirname}/styles/tailwind.css`,
+        config: `${import.meta.dirname}/tailwind.css`,
         cssFiles: ["**/*.css", "!**/node_modules", "!**/.*", "!**/dist", "!**/build"],
         cssFilesRefreshRate: 5_000,
         removeDuplicates: true,

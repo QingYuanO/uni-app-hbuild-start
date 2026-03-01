@@ -19,14 +19,12 @@ const props = withDefaults(
   },
 );
 
-
-
 onLoad(() => {
 
 });
 
 defineExpose({
- 
+
 });
 </script>
 

@@ -12,8 +12,8 @@
     "@dcloudio/uni-app": "3.0.0-4010520240507001",
     "@tanstack/vue-query": "^5.91.0",
     "@uni-helper/uni-network": "^0.23.0",
-    "@weapp-tailwindcss/merge": "^2.1.2",
-    "@weapp-tailwindcss/variants": "^0.1.2",
+    "@weapp-tailwindcss/merge": "^2.1.6",
+    "@weapp-tailwindcss/variants": "^0.2.1",
     "abortcontroller-polyfill": "^1.7.8",
     "bignumber.js": "^9.3.1",
     "dayjs": "^1.11.19",
@@ -55,6 +55,6 @@
     "vite": "^5.4.21",
     "vue-eslint-parser": "^10.2.0",
     "vue-tsc": "^2.2.10",
-    "weapp-tailwindcss": "^4.9.7"
+    "weapp-tailwindcss": "^4.10.3"
   }
 }

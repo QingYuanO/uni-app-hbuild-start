@@ -1,7 +1,6 @@
-import { computed, onBeforeMount } from "vue";
-import i18n from "@/i18n";
+import { computed } from "vue";
 import { Locale } from "wot-design-uni";
-
+import i18n from "@/i18n";
 
 export type SupportedLocalesType = "zh-CN" | "en-US";
 

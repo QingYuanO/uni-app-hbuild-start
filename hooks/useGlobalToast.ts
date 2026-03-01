@@ -1,8 +1,6 @@
-
+import type { ToastOptions } from "wot-design-uni/components/wd-toast/types";
 import { defineStore } from "pinia";
 import { router } from "@/router";
-import type { ToastOptions } from "wot-design-uni/components/wd-toast/types";
-
 
 interface GlobalToast {
   toastOptions: ToastOptions;
