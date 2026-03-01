@@ -65,8 +65,9 @@ instance.interceptors.request.use(
   },
   (error) => {
     // 对请求错误做些什么
-    setTimeout;
-    uni.hideLoading();
+    setTimeout(() => {
+      uni.hideLoading();
+    }, 2000);
     return Promise.reject(error);
   },
 );
