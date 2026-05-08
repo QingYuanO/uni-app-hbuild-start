@@ -1,4 +1,4 @@
-import type { ConfigProviderThemeVars } from "wot-design-uni";
+import type { ConfigProviderThemeVars } from "@wot-ui/ui/components/wd-config-provider/types";
 
 // src/composables/useTheme.ts
 import { ref } from "vue";

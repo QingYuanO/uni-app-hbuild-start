@@ -43,6 +43,6 @@ export default {
   <wd-toast v-if="hackAlipayVisible" selector="globalToast" :closed="closeGlobalToast" />
   <!-- #endif -->
   <!-- #ifndef MP-ALIPAY -->
-  <wd-toast selector="globalToast" :closed="closeGlobalToast" custom-class=" w-[65vw]! bg-white! px-4! py-1.5! text-foreground!" />
+  <wd-toast selector="globalToast" :closed="closeGlobalToast" custom-class="" />
   <!-- #endif -->
 </template>

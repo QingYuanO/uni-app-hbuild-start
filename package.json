@@ -14,6 +14,7 @@
     "@uni-helper/uni-network": "^0.23.0",
     "@weapp-tailwindcss/merge": "^2.1.6",
     "@weapp-tailwindcss/variants": "^0.2.1",
+    "@wot-ui/ui": "^2.0.5",
     "abortcontroller-polyfill": "^1.7.8",
     "bignumber.js": "^9.3.1",
     "dayjs": "^1.11.19",
@@ -21,8 +22,7 @@
     "pinia": "2.3.1",
     "popmotion": "^11.0.5",
     "vue": "^3.4.38",
-    "vue-i18n": "^9.14.0",
-    "wot-design-uni": "^1.14.0"
+    "vue-i18n": "^9.14.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.2.0",
@@ -55,6 +55,6 @@
     "vite": "^5.4.21",
     "vue-eslint-parser": "^10.2.0",
     "vue-tsc": "^2.2.10",
-    "weapp-tailwindcss": "^4.10.3"
+    "weapp-tailwindcss": "^4.12.0"
   }
 }

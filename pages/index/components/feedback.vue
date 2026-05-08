@@ -1,18 +1,18 @@
 <script setup lang="ts">
 const toast = useGlobalToast();
-const messageBox = useGlobalMessage();
+const dialog = useGlobalDialog();
 
 function handleToast() {
   toast.success("成功");
 }
 
 function handleMessageBox() {
-  messageBox.alert("提示");
+  dialog.alert("提示");
 }
 </script>
 
 <template>
-  <view class="flex gap-y-4">
+  <view class="flex gap-4">
     <wd-button type="primary" @click="handleToast">
       toast
     </wd-button>

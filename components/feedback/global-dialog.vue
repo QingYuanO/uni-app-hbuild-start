@@ -1,11 +1,20 @@
+<!--
+ * @Author: weisheng
+ * @Date: 2025-09-02 09:42:36
+ * @LastEditTime: 2026-04-08 18:36:24
+ * @LastEditors: weisheng
+ * @Description:
+ * @FilePath: /wot-starter/src/components/GlobalDialog.vue
+ * 记得注释
+-->
 <script lang="ts" setup>
-import { deepClone, isFunction } from "wot-design-uni/components/common/util";
-
+import { useDialog } from "@wot-ui/ui";
+import { deepClone, isFunction } from "@wot-ui/ui/common/util";
 import { router } from "@/router";
 
-const { messageOptions, currentPage } = storeToRefs(useGlobalMessage());
+const { dialogOptions, currentPage } = storeToRefs(useGlobalDialog());
 
-const messageBox = useMessage("globalMessage");
+const dialog = useDialog("globalDialog");
 const currentPath = router.path;
 
 // #ifdef MP-ALIPAY
@@ -16,23 +25,23 @@ nextTick(() => {
 });
 // #endif
 
-watch(() => messageOptions.value, (newVal) => {
+watch(() => dialogOptions.value, (newVal) => {
   if (newVal) {
     if (currentPage.value === currentPath) {
       const option = deepClone(newVal);
-      messageBox.show(option).then((res) => {
-        if (option.success && isFunction(option.success)) {
+      dialog.show(option).then((res) => {
+        if (isFunction(option.success)) {
           option.success(res);
         }
       }).catch((err) => {
-        if (option.fail && isFunction(option.fail)) {
+        if (isFunction(option.fail)) {
           option.fail(err);
         }
       });
     }
   }
   else {
-    messageBox.close();
+    dialog.close();
   }
 });
 </script>
@@ -49,9 +58,9 @@ export default {
 
 <template>
   <!-- #ifdef MP-ALIPAY -->
-  <wd-message-box v-if="hackAlipayVisible" selector="globalMessage" custom-class="global-message-box" />
+  <wd-dialog v-if="hackAlipayVisible" selector="globalDialog" />
   <!-- #endif -->
   <!-- #ifndef MP-ALIPAY -->
-  <wd-message-box selector="globalMessage" custom-class="global-message-box" />
+  <wd-dialog selector="globalDialog" />
   <!-- #endif -->
 </template>

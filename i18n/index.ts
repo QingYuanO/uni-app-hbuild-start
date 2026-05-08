@@ -1,6 +1,6 @@
+import { Locale } from "@wot-ui/ui";
+import WotEnUS from "@wot-ui/ui/locale/lang/en-US";
 import { createI18n } from "vue-i18n";
-import { Locale } from "wot-design-uni";
-import WotEnUS from "wot-design-uni/locale/lang/en-US";
 import en from "@/i18n/lang/en";
 import zhCn from "@/i18n/lang/zh-cn";
 

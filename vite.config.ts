@@ -34,8 +34,8 @@ export default defineConfig({
         "pinia",
         "vue-i18n",
         {
-          from: "wot-design-uni",
-          imports: ["useToast", "useMessage", "useNotify", "CommonUtil"],
+          from: "@wot-ui/ui",
+          imports: ["useToast", "useDialog", "useNotify", "CommonUtil"],
         },
       ],
       dts: "types/auto-imports.d.ts",

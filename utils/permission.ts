@@ -366,7 +366,7 @@ type PermissionID
     | "calendar"
     | "memo";
 async function requestSomePermission(permissionID: PermissionID, options?: { msg?: string; success?: () => void; fail?: () => void }) {
-  const messageBox = useGlobalMessage();
+  const dialog = useGlobalDialog();
   let isGranted = false;
   try {
     switch (permissionID) {
@@ -401,7 +401,7 @@ async function requestSomePermission(permissionID: PermissionID, options?: { msg
   }
 
   if (!isGranted) {
-    messageBox.confirm({
+    dialog.confirm({
       msg: options?.msg ?? "",
       success(res) {
         if (res.action === "confirm") {

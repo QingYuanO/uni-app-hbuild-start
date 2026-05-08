@@ -1,6 +1,6 @@
 <!-- 登录 -->
 <script setup lang="ts">
-import type { ErrorMessage, FormExpose } from "wot-design-uni/components/wd-form/types";
+import type { ErrorMessage, FormExpose } from "@wot-ui/ui/components/wd-form/types";
 import { router } from "@/router";
 
 const user = useUserStore();

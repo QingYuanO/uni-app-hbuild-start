@@ -1,9 +1,9 @@
 @import "tailwindcss";
-@import "./styles/tw-animate.css";
+@import "./tw-animate.css";
 @source not "unpackage";
 @plugin "weapp-tailwindcss/css-macro";
 @plugin "@iconify/tailwind4";
-@config "./tailwind.config.js";
+@config "../tailwind.config.js";
 
 
 page {

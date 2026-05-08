@@ -32,6 +32,6 @@ defineExpose({
   <view :class="cn('', customClass)" :style="customStyle">
     <slot />
     <global-toast />
-    <global-message />
+    <global-dialog />
   </view>
 </template>

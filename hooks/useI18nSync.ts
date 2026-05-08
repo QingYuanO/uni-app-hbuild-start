@@ -1,5 +1,5 @@
+import { Locale } from "@wot-ui/ui";
 import { computed } from "vue";
-import { Locale } from "wot-design-uni";
 import i18n from "@/i18n";
 
 export type SupportedLocalesType = "zh-CN" | "en-US";
