@@ -24,12 +24,12 @@ onShow(() => {});
 </script>
 
 <template>
-  <wd-config-provider
-    :theme="themeStore.theme" :theme-vars="themeStore.themeVars" :custom-class="cn(DEVICE_INFO.osName, themeStore.theme, 'cover-wd', customClass)"
-    :custom-style="`${customStyle}--custom-navbar-height:${getCustomNavHeight()}px;`"
+  <view
+    :class="cn(DEVICE_INFO.osName, themeStore.theme, 'cover-wd', customClass)"
+    :style="`${customStyle}--custom-navbar-height:${getCustomNavHeight()}px;`"
   >
     <slot />
-  </wd-config-provider>
+  </view>
 </template>
 
     <style lang="scss" scoped>

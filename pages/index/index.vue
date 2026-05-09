@@ -40,7 +40,7 @@ function handleAnimation() {
   <container-paging title="首页" is-tabbar custom-class="py-1.5">
     <view class="flex flex-col gap-y-4 px-4">
       <view>
-        <view class="size-25 bg-primary " :style="{ transform: `translateX(${translateX}px)` }" />
+        <view class="size-25 bg-wot-primary-10 " :style="{ transform: `translateX(${translateX}px)` }" />
 
         <wd-button @click="handleAnimation">
           动画

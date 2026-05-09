@@ -2,6 +2,7 @@
   "name": "uni-app-hbuild-start",
   "version": "0.0.0",
   "scripts": {
+    "generate:cover": "node scripts/generate-wot-cover-from-tailwind.mjs",
     "iconfont": "npx iconfont-uni",
     "copy-darwin-x64": "cd node_modules/@esbuild && cp -r darwin-arm64 darwin-x64",
     "postinstall": "weapp-tw patch",

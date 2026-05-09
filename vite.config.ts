@@ -1,10 +1,11 @@
+import { execFileSync } from "node:child_process";
 import path, { resolve } from "node:path";
 // @ts-ignore
 import uni from "@dcloudio/vite-plugin-uni";
 import tailwindcss from "@tailwindcss/postcss";
 import Components from "@uni-helper/vite-plugin-uni-components";
 import AutoImport from "unplugin-auto-import/vite";
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import cssMacro from "weapp-tailwindcss/css-macro/postcss";
 import { UnifiedViteWeappTailwindcssPlugin as uvwt } from "weapp-tailwindcss/vite";
 // 注意： 打包成 h5 和 app 都不需要开启插件配置
@@ -12,10 +13,26 @@ const isH5 = process.env.UNI_PLATFORM === "h5";
 const isApp = process.env.UNI_PLATFORM === "app";
 const WeappTailwindcssDisabled = isH5 || isApp;
 
+/** Regenerate styles/cover.css from tailwind.css before production build (not dev). */
+function generateWotCoverPlugin(): Plugin {
+  return {
+    name: "generate-wot-cover",
+    apply: "build",
+    buildStart() {
+      execFileSync(
+        process.execPath,
+        [path.resolve(__dirname, "scripts/generate-wot-cover-from-tailwind.mjs")],
+        { stdio: "inherit", cwd: __dirname },
+      );
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: { alias: [{ find: "@", replacement: resolve(__dirname, "./") }] },
   plugins: [
+    generateWotCoverPlugin(),
     Components({ dts: "types/components.d.ts", dirs: ["components"], resolvers: [] }),
     uni(),
     uvwt({

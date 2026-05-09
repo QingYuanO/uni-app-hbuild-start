@@ -1,56 +1,225 @@
-.cover-wd {
-	--wot-color-theme: var(--primary);
-	--wot-navbar-color: var(--foreground);
-	--wot-navbar-bg: var(--background);
-	--wot-color-border-light: var(--border);
+/*
+ * Wot 小程序安全主题（hex/rgba）：BEGIN～END 内由脚本生成，请勿手改生成区。
+ * 修改 tailwind.css 后执行：npm run generate:cover
+ */
+/* BEGIN GENERATED WOT COVER */
+.light.cover-wd,
+.light.wd-root-portal,
+.light .wd-root-portal {
+  --wot-primary-1: #eef8ec;
+  --wot-primary-2: #e1f2dd;
+  --wot-primary-3: #d1ebca;
+  --wot-primary-4: #bde3b3;
+  --wot-primary-5: #a9da9d;
+  --wot-primary-6: #59b842;
+  --wot-primary-7: #489236;
+  --wot-primary-8: #3b762d;
+  --wot-primary-9: #305e25;
+  --wot-primary-10: #25451d;
+  --wot-danger-main: #fe4637;
+  --wot-danger-hover: #e13f32;
+  --wot-danger-clicked: #ba352a;
+  --wot-danger-disabled: #ffb9b3;
+  --wot-danger-particular: #ffd6d3;
+  --wot-danger-surface: #ffe9e7;
+  --wot-success-main: #2f9f3d;
+  --wot-success-hover: #298935;
+  --wot-success-clicked: #096d20;
+  --wot-success-disabled: #b6ddbb;
+  --wot-success-particular: #d1ead4;
+  --wot-success-surface: #e6f3e8;
+  --wot-warning-main: #f47600;
+  --wot-warning-hover: #d86901;
+  --wot-warning-clicked: #ad4c02;
+  --wot-warning-disabled: #fbcb9e;
+  --wot-warning-particular: #fde1c7;
+  --wot-warning-surface: #feefe0;
+  --wot-text-main: #0a0a0a;
+  --wot-text-secondary: #737373;
+  --wot-text-auxiliary: #7e7e7e;
+  --wot-text-disabled: #b2b2b2;
+  --wot-text-placeholder: #737373;
+  --wot-text-white: #eff6ff;
+  --wot-icon-main: #0a0a0a;
+  --wot-icon-secondary: #737373;
+  --wot-icon-auxiliary: #7e7e7e;
+  --wot-icon-disabled: #b2b2b2;
+  --wot-icon-placeholder: #737373;
+  --wot-icon-white: #eff6ff;
+  --wot-border-extra-strong: #828282;
+  --wot-border-strong: #a8a8a8;
+  --wot-border-main: #e5e5e5;
+  --wot-border-light: #f0f0f0;
+  --wot-border-white: #ffffff;
+  --wot-border-zero: transparent;
+  --wot-filled-extra-strong: #f5f5f5;
+  --wot-filled-strong: #f5f5f5;
+  --wot-filled-content: #f8f8f8;
+  --wot-filled-bottom: #ffffff;
+  --wot-filled-oppo: #ffffff;
+  --wot-filled-zero: transparent;
+  --wot-divider-main: rgba(0, 0, 0, 0.08);
+  --wot-divider-light: rgba(0, 0, 0, 0.04);
+  --wot-divider-strong: rgba(0, 0, 0, 0.14);
+  --wot-feedback-hover: rgba(0, 0, 0, 0.06);
+  --wot-feedback-active: rgba(0, 0, 0, 0.1);
+  --wot-feedback-accent: rgba(89, 184, 66, 0.12);
+  --wot-divider-white: #ffffff;
+  --wot-opacfilled-tooltip-toast-cover: rgba(0, 0, 0, 0.75);
+  --wot-opacfilled-main-cover: rgba(0, 0, 0, 0.55);
+  --wot-opacfilled-light-cover: rgba(0, 0, 0, 0.32);
+  --wot-picker-view-mask-start-color: rgba(255, 255, 255, 0.88);
+  --wot-picker-view-mask-end-color: rgba(255, 255, 255, 0.18);
+  --wot-classifyapplication-yellow-background: #f9eaca;
+  --wot-classifyapplication-yellow-border: #f2cf80;
+  --wot-classifyapplication-yellow-content: #a06200;
+  --wot-classifyapplication-cyan-background: #d6f6fb;
+  --wot-classifyapplication-cyan-border: #97dbe7;
+  --wot-classifyapplication-cyan-content: #007994;
+  --wot-classifyapplication-purple-background: #efecfb;
+  --wot-classifyapplication-purple-border: #cfc7f6;
+  --wot-classifyapplication-purple-content: #6d48d1;
+  --wot-classifyapplication-grape-background: #e6ecfb;
+  --wot-classifyapplication-grape-border: #bec8f6;
+  --wot-classifyapplication-grape-content: #4747dd;
+  --wot-classifyapplication-pink-background: #fbe7f3;
+  --wot-classifyapplication-pink-border: #f6c1dd;
+  --wot-classifyapplication-pink-content: #b51c79;
 }
+
+.dark.cover-wd,
+.dark.wd-root-portal,
+.dark .wd-root-portal {
+  --wot-primary-1: #121b10;
+  --wot-primary-2: #182914;
+  --wot-primary-3: #203b1a;
+  --wot-primary-4: #2a5020;
+  --wot-primary-5: #336427;
+  --wot-primary-6: #59b842;
+  --wot-primary-7: #7cc76a;
+  --wot-primary-8: #96d188;
+  --wot-primary-9: #addaa2;
+  --wot-primary-10: #c3e4bb;
+  --wot-danger-main: #82181a;
+  --wot-danger-hover: #903335;
+  --wot-danger-clicked: #a45759;
+  --wot-danger-disabled: #380f10;
+  --wot-danger-particular: #240d0e;
+  --wot-danger-surface: #180c0c;
+  --wot-success-main: #2f9f3d;
+  --wot-success-hover: #4dad59;
+  --wot-success-clicked: #3ea255;
+  --wot-success-disabled: #173e1c;
+  --wot-success-particular: #122b15;
+  --wot-success-surface: #0e1c10;
+  --wot-warning-main: #f47600;
+  --wot-warning-hover: #f5861e;
+  --wot-warning-clicked: #e28137;
+  --wot-warning-disabled: #633306;
+  --wot-warning-particular: #3d2208;
+  --wot-warning-surface: #261709;
+  --wot-text-main: #fafafa;
+  --wot-text-secondary: #a1a1a1;
+  --wot-text-auxiliary: #959595;
+  --wot-text-disabled: #5d5d5d;
+  --wot-text-placeholder: #a1a1a1;
+  --wot-text-white: #eff6ff;
+  --wot-icon-main: #fafafa;
+  --wot-icon-secondary: #a1a1a1;
+  --wot-icon-auxiliary: #959595;
+  --wot-icon-disabled: #5d5d5d;
+  --wot-icon-placeholder: #a1a1a1;
+  --wot-icon-white: #eff6ff;
+  --wot-border-extra-strong: #858585;
+  --wot-border-strong: #616161;
+  --wot-border-main: #262626;
+  --wot-border-light: #1a1a1a;
+  --wot-border-white: #0a0a0a;
+  --wot-border-zero: transparent;
+  --wot-filled-extra-strong: #262626;
+  --wot-filled-strong: #262626;
+  --wot-filled-content: #1e1e1e;
+  --wot-filled-bottom: #0a0a0a;
+  --wot-filled-oppo: #0a0a0a;
+  --wot-filled-zero: transparent;
+  --wot-divider-main: rgba(255, 255, 255, 0.08);
+  --wot-divider-light: rgba(255, 255, 255, 0.04);
+  --wot-divider-strong: rgba(255, 255, 255, 0.14);
+  --wot-feedback-hover: rgba(255, 255, 255, 0.06);
+  --wot-feedback-active: rgba(255, 255, 255, 0.1);
+  --wot-feedback-accent: rgba(89, 184, 66, 0.12);
+  --wot-divider-white: #0a0a0a;
+  --wot-opacfilled-tooltip-toast-cover: rgba(0, 0, 0, 0.75);
+  --wot-opacfilled-main-cover: rgba(0, 0, 0, 0.55);
+  --wot-opacfilled-light-cover: rgba(0, 0, 0, 0.32);
+  --wot-picker-view-mask-start-color: rgba(10, 10, 10, 0.88);
+  --wot-picker-view-mask-end-color: rgba(10, 10, 10, 0.18);
+  --wot-classifyapplication-yellow-background: #c8b284;
+  --wot-classifyapplication-yellow-border: #b99647;
+  --wot-classifyapplication-yellow-content: #a06200;
+  --wot-classifyapplication-cyan-background: #96c3c9;
+  --wot-classifyapplication-cyan-border: #5498a4;
+  --wot-classifyapplication-cyan-content: #007994;
+  --wot-classifyapplication-purple-background: #b9b5c9;
+  --wot-classifyapplication-purple-border: #8c84b3;
+  --wot-classifyapplication-purple-content: #6d48d1;
+  --wot-classifyapplication-grape-background: #acb5c9;
+  --wot-classifyapplication-grape-border: #7b85b3;
+  --wot-classifyapplication-grape-content: #4747dd;
+  --wot-classifyapplication-pink-background: #c9adbe;
+  --wot-classifyapplication-pink-border: #b37e9a;
+  --wot-classifyapplication-pink-content: #b51c79;
+}
+
+/* END GENERATED WOT COVER */
 
 
 
 .uni-tabbar__bd {
-	/* #ifdef H5 */
-	overflow: hidden;
-	/* #endif */
+  /* #ifdef H5 */
+  overflow: hidden;
+  /* #endif */
 }
 
 .aspect-square {
-	aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1;
 }
 
 @supports not (aspect-ratio: 1 / 1) {
-	.aspect-square {
-		position: relative;
-		width: 100%;
-	}
+  .aspect-square {
+    position: relative;
+    width: 100%;
+  }
 
-	.aspect-square::before {
-		content: '';
-		display: block;
-		padding-top: 100%;
-	}
+  .aspect-square::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
 
-	.aspect-square>* {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
+  .aspect-square>* {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 
 .hide-scroll {
-	scrollbar-width: none;
+  scrollbar-width: none;
 }
 
 
 /*  #ifdef  H5  */
 :deep(.hide-scroll::-webkit-scrollbar) {
-	display: none;
+  display: none;
 }
 
 svg {
-	display: initial;
+  display: initial;
 }
+
 /*  #endif  */

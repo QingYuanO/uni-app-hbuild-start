@@ -72,3 +72,7 @@ function stepMessagePush() {
   );
 }
 </script>
+
+<style lang="scss">
+
+</style>

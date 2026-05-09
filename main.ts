@@ -6,7 +6,7 @@ import App from "./App.vue";
 import i18n from "./i18n";
 import "./router";
 import "abortcontroller-polyfill/dist/abortcontroller-polyfill-only";
-import "./styles/tailwind.css";
+import "./tailwind.css";
 import "./styles/cover.css";
 
 export function createApp() {
