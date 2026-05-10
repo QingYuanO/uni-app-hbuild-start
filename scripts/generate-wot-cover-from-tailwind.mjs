@@ -21,7 +21,7 @@ const BEGIN = "/* BEGIN GENERATED WOT COVER */";
 const END = "/* END GENERATED WOT COVER */";
 
 /** OKLCH → sRGB hex (#rrggbb). Same pipeline as CSS Color 4 oklab route. */
-function oklchToHex(L, C, H) {
+function oklchToRgbTuple(L, C, H) {
   const hr = (H * Math.PI) / 180;
   const a = Math.cos(hr) * C;
   const b = Math.sin(hr) * C;
@@ -42,18 +42,39 @@ function oklchToHex(L, C, H) {
   function clamp255(x) {
     return Math.max(0, Math.min(255, Math.round(linToSrgb(x) * 255)));
   }
-  const r = clamp255(R);
-  const g = clamp255(G);
-  const bl = clamp255(B);
+  return [clamp255(R), clamp255(G), clamp255(B)];
+}
+
+function oklchToHex(L, C, H) {
+  const [r, g, bl] = oklchToRgbTuple(L, C, H);
   return `#${[r, g, bl].map((x) => x.toString(16).padStart(2, "0")).join("")}`;
 }
 
+/** Parses oklch(L C H) or oklch(L C H / alpha) where alpha is 0–1 or a percentage. */
 function parseOklch(value) {
   const s = value.trim();
-  const m = s.match(/oklch\(\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*\)/i);
+  const m = s.match(/oklch\(\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*(?:\/\s*([^)]+?))?\s*\)/i);
   if (!m)
     throw new Error(`Expected oklch(...), got: ${value}`);
-  return [Number(m[1]), Number(m[2]), Number(m[3])];
+  const L = Number(m[1]);
+  const C = Number(m[2]);
+  const H = Number(m[3]);
+  let alpha = 1;
+  if (m[4] !== undefined) {
+    const a = m[4].trim();
+    if (a.endsWith("%"))
+      alpha = Number.parseFloat(a.slice(0, -1)) / 100;
+    else
+      alpha = Number.parseFloat(a);
+    if (!Number.isFinite(alpha))
+      throw new Error(`Bad alpha in oklch: ${value}`);
+    alpha = Math.max(0, Math.min(1, alpha));
+  }
+  return { L, C, H, alpha };
+}
+
+function rgbTupleToHex(r, g, b) {
+  return `#${[r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")}`;
 }
 
 function extractClassBody(css, className) {
@@ -94,6 +115,26 @@ function hexToRgb(hex) {
   return [Number.parseInt(h.slice(0, 2), 16), Number.parseInt(h.slice(2, 4), 16), Number.parseInt(h.slice(4, 6), 16)];
 }
 
+/** OKLCH (optional alpha) → opaque hex; semi-transparent colors are composited over backdropHex. */
+function oklchCssToHex(raw, backdropHex) {
+  const { L, C, H, alpha } = parseOklch(raw);
+  const [fr, fg, fb] = oklchToRgbTuple(L, C, H);
+  if (alpha >= 1 - 1e-9)
+    return rgbTupleToHex(fr, fg, fb);
+  if (backdropHex == null) {
+    throw new Error(
+      `Semi-transparent oklch needs a backdrop to flatten: ${raw}`,
+    );
+  }
+  const [br, bg, bb] = hexToRgb(backdropHex);
+  const a = alpha;
+  return rgbTupleToHex(
+    Math.round(fr * a + br * (1 - a)),
+    Math.round(fg * a + bg * (1 - a)),
+    Math.round(fb * a + bb * (1 - a)),
+  );
+}
+
 function lerpHex(a, b, t) {
   const A = hexToRgb(a);
   const B = hexToRgb(b);
@@ -109,18 +150,19 @@ function rgba(hex, alpha) {
 
 /** Semantic hex bundle from tailwind --vars */
 function tokensFromVars(vars) {
+  const bg = oklchCssToHex(vars.background, null);
   return {
-    bg: oklchToHex(...parseOklch(vars.background)),
-    fg: oklchToHex(...parseOklch(vars.foreground)),
-    card: oklchToHex(...parseOklch(vars.card)),
-    popover: oklchToHex(...parseOklch(vars.popover)),
-    primary: oklchToHex(...parseOklch(vars.primary)),
-    pf: oklchToHex(...parseOklch(vars["primary-foreground"])),
-    secondary: oklchToHex(...parseOklch(vars.secondary)),
-    muted: oklchToHex(...parseOklch(vars.muted)),
-    mf: oklchToHex(...parseOklch(vars["muted-foreground"])),
-    destruct: oklchToHex(...parseOklch(vars.destructive)),
-    border: oklchToHex(...parseOklch(vars.border)),
+    bg,
+    fg: oklchCssToHex(vars.foreground, bg),
+    card: oklchCssToHex(vars.card, bg),
+    popover: oklchCssToHex(vars.popover, bg),
+    primary: oklchCssToHex(vars.primary, bg),
+    pf: oklchCssToHex(vars["primary-foreground"], bg),
+    secondary: oklchCssToHex(vars.secondary, bg),
+    muted: oklchCssToHex(vars.muted, bg),
+    mf: oklchCssToHex(vars["muted-foreground"], bg),
+    destruct: oklchCssToHex(vars.destructive, bg),
+    border: oklchCssToHex(vars.border, bg),
   };
 }
 
@@ -203,14 +245,16 @@ function emitThemeBlock(mode, T, opts) {
   push(`  --wot-text-auxiliary: ${lerpHex(T.bg, T.mf, 0.92)};`);
   push(`  --wot-text-disabled: ${lerpHex(T.bg, T.mf, 0.55)};`);
   push(`  --wot-text-placeholder: ${T.mf};`);
-  push(`  --wot-text-white: ${T.pf};`);
+  /* Toast / tooltip / inverse surfaces: need light glyphs on dark scrim — not primary-foreground (dark on primary in .dark). */
+  const textWhite = mode === "dark" ? T.fg : T.pf;
+  push(`  --wot-text-white: ${textWhite};`);
 
   push(`  --wot-icon-main: ${T.fg};`);
   push(`  --wot-icon-secondary: ${T.mf};`);
   push(`  --wot-icon-auxiliary: ${lerpHex(T.bg, T.mf, 0.92)};`);
   push(`  --wot-icon-disabled: ${lerpHex(T.bg, T.mf, 0.55)};`);
   push(`  --wot-icon-placeholder: ${T.mf};`);
-  push(`  --wot-icon-white: ${T.pf};`);
+  push(`  --wot-icon-white: ${textWhite};`);
 
   push(`  --wot-border-extra-strong: ${lerpHex(T.border, T.fg, 0.45)};`);
   push(`  --wot-border-strong: ${lerpHex(T.border, T.fg, 0.28)};`);
@@ -243,9 +287,21 @@ function emitThemeBlock(mode, T, opts) {
   push(`  --wot-feedback-accent: rgba(${prRgb[0]}, ${prRgb[1]}, ${prRgb[2]}, 0.12);`);
   push(`  --wot-divider-white: ${T.card};`);
 
-  push(`  --wot-opacfilled-tooltip-toast-cover: rgba(0, 0, 0, 0.75);`);
-  push(`  --wot-opacfilled-main-cover: rgba(0, 0, 0, 0.55);`);
-  push(`  --wot-opacfilled-light-cover: rgba(0, 0, 0, 0.32);`);
+  if (mode === "light") {
+    push(`  --wot-opacfilled-tooltip-toast-cover: rgba(0, 0, 0, 0.75);`);
+    push(`  --wot-opacfilled-main-cover: rgba(0, 0, 0, 0.55);`);
+    push(`  --wot-opacfilled-light-cover: rgba(0, 0, 0, 0.32);`);
+  }
+  else {
+    /* 深色页面：纯黑半透明遮罩/Toast 底与背景融在一起；Toast 用 popover 抬升灰 + 略强遮罩 */
+    push(`  --wot-overlay-bg: rgba(0, 0, 0, 0.68);`);
+    const popRgb = hexToRgb(T.popover);
+    push(
+      `  --wot-opacfilled-tooltip-toast-cover: rgba(${popRgb[0]}, ${popRgb[1]}, ${popRgb[2]}, 0.97);`,
+    );
+    push(`  --wot-opacfilled-main-cover: rgba(0, 0, 0, 0.62);`);
+    push(`  --wot-opacfilled-light-cover: rgba(0, 0, 0, 0.42);`);
+  }
 
   push(`  --wot-picker-view-mask-start-color: ${rgba(T.bg, 0.88)};`);
   push(`  --wot-picker-view-mask-end-color: ${rgba(T.bg, 0.18)};`);

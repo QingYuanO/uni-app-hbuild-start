@@ -47,9 +47,6 @@ function handleLogin() {
         error-type="toast" custom-class="flex flex-col gap-y-5"
       >
         <view class="flex flex-col gap-y-1">
-          <wd-button type="primary" custom-class=" w-20! rounded-lg! bg-amber-300/50!">
-            Custom Button
-          </wd-button>
           <wd-input
             v-model="formData.phone" prop="phone"
             marker-side="after" custom-class=" rounded-lg border border-border" label="手机号"

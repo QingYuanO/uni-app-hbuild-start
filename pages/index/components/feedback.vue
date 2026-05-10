@@ -3,7 +3,9 @@ const toast = useGlobalToast();
 const dialog = useGlobalDialog();
 
 function handleToast() {
-  toast.success("成功");
+  toast.success({
+    msg: "成功",
+  });
 }
 
 function handleMessageBox() {
