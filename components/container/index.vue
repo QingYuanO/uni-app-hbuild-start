@@ -34,8 +34,8 @@ const props = withDefaults(
     isTabbar: false,
     linearGradientHeight: 200,
     hasBack: false,
-    linearGradientFrom: "#E8E6FC",
-    linearGradientTo: "#e8e6fc07",
+    linearGradientFrom: "",
+    linearGradientTo: "",
     navbarClass: "",
   },
 );
