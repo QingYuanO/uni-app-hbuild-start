@@ -10,45 +10,41 @@ defineOptions({
   },
 });
 
-const tabbarStore = useTabbarStore();
-
-onShow(() => {
-  tabbarStore.setActiveTabbar(router.currentPage().route);
-});
+const { activeTabbar, getTabbarItemValue, setTabbarItemActive, tabbarList } = useTabbar();
 
 function handleTabbarChange({ value }: { value: string }) {
-  try {
-    router.push({
-      path: `/${value}`,
-      mode: "switchTab",
-      success: () => {
-        tabbarStore.setActiveTabbar(value);
-      },
-
-    });
-  }
-  catch (error) {
-    console.log(error);
-  }
+  setTabbarItemActive(value);
+  router.switchTab(value);
 }
+
+onMounted(() => {
+  // #ifdef APP
+  uni.hideTabBar();
+  // #endif
+  nextTick(() => {
+    if (router.path && router.path !== `/${activeTabbar.value.path}`) {
+      setTabbarItemActive(router.path);
+    }
+  });
+});
 </script>
 
 <template>
   <wd-tabbar
-    :model-value="tabbarStore.activeTabbar" fixed
+    :model-value="activeTabbar.path" fixed
     safe-area-inset-bottom placeholder
     custom-class="h-15!"
     bordered
     @change="handleTabbarChange"
   >
     <wd-tabbar-item
-      v-for="value in tabbarStore.tabbarList"
-      :key="value.pagePath"
-      :name="value.pagePath"
-      :title="value.text"
-      :icon="value.iconPath"
+      v-for="value in tabbarList"
+      :key="value.path"
+      :name="value.path"
+      :title="value.title"
+      :icon="value.icon"
       custom-class=""
-      :value="value.value"
+      :value="getTabbarItemValue(value.path)"
     >
       <!-- <template #icon>
         <image :class="cn('mb-1')" :src="tabbarStore.activeTabbar === `/${value.pagePath}` ? value.selectedIconPath : value.iconPath" class="size-5 " />

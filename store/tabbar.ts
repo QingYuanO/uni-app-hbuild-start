@@ -1,31 +1,52 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
-import { router } from "@/router";
+export interface TabbarItem {
+  path: string;
+  value?: number;
+  active: boolean;
+  title: string;
+  icon: string;
+}
 
-const iconPath = {
-  "pages/index/index": "home",
-  "pages/my/index": "user",
-};
+const tabbarItems = ref<TabbarItem[]>([
+  { path: "pages/index/index", active: true, title: "首页", icon: "home" },
+  { path: "pages/my/index", active: false, title: "我的", icon: "user" },
+]);
 
-const useTabbarStore = defineStore("tabbar", () => {
-  const activeTabbar = ref(storage.get("activeTabbar") || router.pageConfig.home); ;
+export function useTabbar() {
+  const tabbarList = computed(() => tabbarItems.value);
 
-  const tabbarList = ref(router.tabs.map(item => ({
-    ...item,
-    iconPath: item.iconPath ? `/${item.iconPath!}` : iconPath[item.pagePath as keyof typeof iconPath],
-    selectedIconPath: item.selectedIconPath ? `/${item.selectedIconPath!}` : iconPath[item.pagePath as keyof typeof iconPath],
-    value: 0,
+  const activeTabbar = computed(() => {
+    const item = tabbarItems.value.find(item => item.active);
+    return item || tabbarItems.value[0];
+  });
 
-  })));
-  const setActiveTabbar = (value: string) => {
-    activeTabbar.value = value;
-    storage.set("activeTabbar", value);
+  const getTabbarItemValue = (path: string) => {
+    const item = tabbarItems.value.find(item => item.path === path);
+    return item?.value;
   };
+
+  const setTabbarItem = (path: string, value: number) => {
+    const tabbarItem = tabbarItems.value.find(item => item.path === path);
+    if (tabbarItem) {
+      tabbarItem.value = value;
+    }
+  };
+
+  const setTabbarItemActive = (path: string) => {
+    tabbarItems.value.forEach((item) => {
+      if (item.path === path) {
+        item.active = true;
+      }
+      else {
+        item.active = false;
+      }
+    });
+  };
+
   return {
-    activeTabbar,
     tabbarList,
-    setActiveTabbar,
+    activeTabbar,
+    getTabbarItemValue,
+    setTabbarItem,
+    setTabbarItemActive,
   };
-});
-
-export { useTabbarStore };
+}
